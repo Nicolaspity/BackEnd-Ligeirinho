@@ -10,7 +10,7 @@ Um projeto Rio Innovation Week patrocinado pelo Sesc
   
 - A proposta é totalmente viável com tecnologias já disponíveis: Interface amigável, com interação por uma **televisão touth** e um Banco de Dados simples sobre os pontos turísticos
 
-## 🌐 Site Interativo
+## 🌐 Jogo em formato de um site interativo
 
 Além do robô físico, o projeto contempla o desenvolvimento de um **site interativo**, cuja página inicial apresenta um **mapa do estado do Rio de Janeiro**, destacando as seguintes unidades do **SESC**:
 
