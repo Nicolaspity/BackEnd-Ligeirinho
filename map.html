@@ -1,0 +1,328 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robozinho no Rio</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #2D3033;
+        }
+        #map {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            background-color: #303350;
+        }
+        #robot {
+            width: 50px;
+            height: 50px;
+            background: url('https://img.icons8.com/color/48/000000/robot.png') no-repeat center;
+            background-size: contain;
+            position: absolute;
+            z-index: 1000;
+            pointer-events: none;
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        #joystick-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            z-index: 2000;
+        }
+        #joystick {
+            width: 150px;
+            height: 150px;
+            background: #39477A;
+            border-radius: 50%;
+            position: relative;
+        }
+        #joystick-knob {
+            width: 60px;
+            height: 60px;
+            background: #FA940B;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            border: 3px solid #1C8CD1;
+        }
+        #joystick-knob:active {
+            cursor: grabbing;
+        }
+        .sesc-marker div {
+            background-color: #1C8CD1;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid #FA940B;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .leaflet-popup-content-wrapper {
+            background-color: #303350;
+            color: #FA940B;
+            border: 3px solid #1C8CD1;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .leaflet-popup-content {
+            margin: 10px;
+        }
+        .leaflet-popup-tip {
+            background-color: #1C8CD1;
+        }
+        .leaflet-popup-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #FA940B;
+        }
+        .leaflet-popup-content p {
+            margin: 0;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="robot"></div>
+    <div id="joystick-container">
+        <div id="joystick">
+            <div id="joystick-knob"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inicializa o mapa centrado no Rio de Janeiro com zoom próximo
+        const map = L.map('map').setView([-22.9068, -43.1729], 18);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Adiciona marcadores para os locais do SESC com popups
+        const sescLocations = [
+            { 
+                name: 'SESC Botafogo', 
+                lat: -22.9406, 
+                lng: -43.1816, 
+                description: 'Espaço cultural com teatro, exposições e atividades educativas no coração de Botafogo.' 
+            },
+            { 
+                name: 'SESC Quitandinha', 
+                lat: -22.5278, 
+                lng: -43.2125, 
+                description: 'Palácio histórico em Petrópolis, com eventos culturais e atividades recreativas.' 
+            },
+            { 
+                name: 'SESC Copacabana', 
+                lat: -22.9690, 
+                lng: -43.1870, 
+                description: 'Unidade vibrante com piscina, shows e oficinas culturais em Copacabana.' 
+            },
+            { 
+                name: 'SESC Tijuca', 
+                lat: -22.9219, 
+                lng: -43.2350, 
+                description: 'Centro de lazer e cultura com esportes, shows e cursos na Tijuca.' 
+            }
+        ];
+
+        const sescMarkers = sescLocations.map(location => {
+            const marker = L.marker([location.lat, location.lng], {
+                icon: L.divIcon({
+                    className: 'sesc-marker',
+                    html: `<div></div>`,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                })
+            }).addTo(map).bindPopup(
+                `<h3>${location.name}</h3><p>${location.description}</p>`,
+                { autoClose: false, closeOnClick: false, autoPan: false } // autoPan desativado para evitar conflitos
+            );
+            return marker;
+        });
+
+        // Linhas guias para os SESCs
+        const guideLines = sescLocations.map(() => L.polyline([], {
+            color: '#1C8CD1',
+            weight: 2,
+            opacity: 0.7,
+            dashArray: '5, 10'
+        }));
+
+        // Elemento do robô
+        const robot = document.getElementById('robot');
+        let robotLat = -22.9068;
+        let robotLng = -43.1729;
+        let robotSpeed = 0.0002;
+        let directionX = 0;
+        let directionY = 0;
+        let targetDirectionX = 0;
+        let targetDirectionY = 0;
+        const lerpFactor = 0.1;
+
+        // Função para atualizar a posição do robô, linhas guias e popups
+        function updateRobotPosition() {
+            const point = map.latLngToContainerPoint([robotLat, robotLng]);
+            robot.style.left = point.x - 25 + 'px';
+            robot.style.top = point.y - 25 + 'px';
+            // Faz a câmera seguir o robô de forma consistente
+            map.panTo([robotLat, robotLng], { animate: true, duration: 0.1 });
+
+            // Atualiza as linhas guias e popups
+            const bounds = map.getBounds();
+            sescLocations.forEach((location, index) => {
+                const markerLatLng = L.latLng(location.lat, location.lng);
+                if (!bounds.contains(markerLatLng)) {
+                    // Marcador fora da tela, mostra a linha e fecha o popup
+                    guideLines[index].setLatLngs([[robotLat, robotLng], [location.lat, location.lng]]);
+                    if (!map.hasLayer(guideLines[index])) {
+                        guideLines[index].addTo(map);
+                    }
+                    sescMarkers[index].closePopup();
+                } else {
+                    // Marcador na tela, remove a linha e abre o popup
+                    if (map.hasLayer(guideLines[index])) {
+                        map.removeLayer(guideLines[index]);
+                    }
+                    sescMarkers[index].openPopup();
+                }
+            });
+        }
+
+        // Controle do joystick
+        const joystick = document.getElementById('joystick');
+        const knob = document.getElementById('joystick-knob');
+        let isDragging = false;
+        let joystickCenterX, joystickCenterY;
+
+        knob.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            const rect = joystick.getBoundingClientRect();
+            joystickCenterX = rect.left + rect.width / 2;
+            joystickCenterY = rect.top + rect.height / 2;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            // Calcula a posição do knob
+            const dx = e.clientX - joystickCenterX;
+            const dy = e.clientY - joystickCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 75;
+
+            // Limita o knob ao círculo do joystick
+            let angle = Math.atan2(dy, dx);
+            let boundedDistance = Math.min(distance, maxDistance);
+            let knobX = boundedDistance * Math.cos(angle);
+            let knobY = boundedDistance * Math.sin(angle);
+
+            knob.style.left = `calc(50% + ${knobX}px)`;
+            knob.style.top = `calc(50% + ${knobY}px)`;
+
+            // Define a direção alvo para o loop de animação
+            let speedFactor = boundedDistance / maxDistance;
+            targetDirectionX = speedFactor * Math.cos(angle);
+            targetDirectionY = speedFactor * -Math.sin(angle);
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            knob.style.left = '50%';
+            knob.style.top = '50%';
+            targetDirectionX = 0;
+            targetDirectionY = 0;
+        });
+
+        // Loop de animação para movimentação fluida
+        function gameLoop() {
+            // Interpolação suave para as direções
+            directionX += (targetDirectionX - directionX) * lerpFactor;
+            directionY += (targetDirectionY - directionY) * lerpFactor;
+
+            // Move o robô apenas se houver direção significativa
+            if (Math.abs(directionX) > 0.01 || Math.abs(directionY) > 0.01) {
+                robotLat += robotSpeed * directionY;
+                robotLng += robotSpeed * directionX;
+                updateRobotPosition();
+            } else {
+                // Garante que a câmera continue seguindo mesmo sem movimento
+                map.panTo([robotLat, robotLng], { animate: true, duration: 0.1 });
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Inicia o loop de animação
+        requestAnimationFrame(gameLoop);
+
+        // Ajusta a posição do robô ao redimensionar a janela
+        window.addEventListener('resize', updateRobotPosition);
+
+        // Força a atualização inicial para abrir popups visíveis
+        updateRobotPosition();
+    </script>
+</body>
+</html>
