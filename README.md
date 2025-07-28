@@ -46,14 +46,14 @@ Este repositório GitHub funcionará como base de desenvolvimento colaborativo p
 
 ```bash
 /backend-ligeirinho/
-├── /public/               # Arquivos estáticos
-├── /src/                  # Código-fonte do projeto
-│   ├── /components/       # Componentes de UI
-│   ├── /pages/            # Páginas do site interativo
-│   ├── /data/             # Banco de dados com conteúdos históricos
-│   ├── /api/              # Integrações com IA e backend
-├── /robot/                # Scripts e lógica do robô Ligeirinho
-├── index.html             # Página inicial com o mapa interativo
+├── algumaacois            # Descrição
+├── algumaacois            # Descrição
+│   ├── outracoisa         # Descrição
+│   ├── outracoisa         # Descrição
+│   ├── outracoisa         # Descrição
+│   ├── outracoisa         # Descrição
+├── algumaacois            # Descrição
+├── algumaacois            # Descrição
 ├── README.md              # Este documento
-└── package.json           # Dependências do projeto
+└── algumaacois            # Descrição
 
