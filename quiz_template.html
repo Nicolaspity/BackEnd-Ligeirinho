@@ -4,72 +4,94 @@
     <meta charset="UTF-8">
     <title>Pergunta 1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: 'Poppins', Arial, sans-serif;
-            background: #39477A;
+            background-color: #39477a;
+            background-image: url("https://www.transparenttextures.com/patterns/otis-redding.png");
+            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
         }
         .quiz-header-img {
             width: 100%;
-            height: 180px;
+            height: 300px;
             object-fit: cover;
+            align-items: center;
             display: block;
+            position: relative;
         }
         .quiz-container {
-            background: #39477A;
             padding: 40px 20px 32px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: calc(100vh - 180px);
+            min-height: calc(100vh - 350px);
+            background-color: #39477a;
+            background-image: radial-gradient(circle at bottom, #39477A, #303350);
+
+            /*background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");*/
+
         }
         .quiz-title {
             color: #fff;
-            font-size: 2.5rem;
-            font-weight: 500;
-            margin-bottom: 36px;
-            margin-top: 0;
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 26px;
+            margin-top: -10px;
             letter-spacing: 1px;
             width: 100%;
-            max-width: 340px;
             text-align: center;
             box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
         }
         .quiz-options {
             width: 100%;
-            max-width: 340px;
             display: flex;
-            flex-direction: column;
+            flex-direction: line;
             gap: 18px;
-            margin-bottom: 40px;
+            margin: 40px;
+            padding: 5px;
+            justify-content: center;
+            align-items: center;
         }
         .quiz-option {
-            background: #4B4B4B;
             color: #fff;
-            font-size: 1.25rem;
+            font-size: 2.5rem;
             border: 2px solid transparent;
-            /*border-radius: 50px;*/
-            padding: 16px 0;
+            max-width: 500px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            height: 200px;
             text-align: center;
             cursor: pointer;
-            transition: border 0.2s, box-shadow 0.2s;
+            transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
             position: relative;
             box-sizing: border-box;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #4b4b4b;
+            background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");
+            justify-content: center;
+
+
+            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
         }
         .quiz-option {
-            border-width: 2px;
+            border-width: 4px;
             border-style: solid;
             border-image: linear-gradient(90deg, #1C8CD1, #3F79A8, #FA940B) 1;
         }
-        .quiz-option:hover, .quiz-option.selected {
-            box-shadow: 0 0 8px #FA940B55;
+        .quiz-option:hover,
+        .quiz-option.selected {
+            background: linear-gradient(90deg, #1C8CD1, #3F79A8, #FA940B);
+            color: #111;
             border-color: #FA940B;
+            box-shadow: 0 0 8px #FA940B55;
         }
         .quiz-next-btn {
             background: linear-gradient(90deg, #FA940B 60%, #F7B733 100%);
             color: #fff;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             font-family: 'Poppins', Arial, sans-serif;
             font-weight: 600;
             border: none;
@@ -88,15 +110,23 @@
     </style>
 </head>
 <body>
-    <img class="quiz-header-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Rio de Janeiro">
+    <img class="quiz-header-img" src="https://images.musement.com/cover/0134/05/corcovado-rio-de-janeiro-brazil-jpg_header-13304914.jpeg" alt="Rio de Janeiro">
     <div class="quiz-container">
-        <h1 class="quiz-title">Pergunta 1</h1>
+        <h1 class="quiz-title">Que linguagens artísticas são exploradas nas oficinas culturais ao redor do SESC Copacabana?</h1>
         <div class="quiz-options">
-            <div class="quiz-option">Opção A</div>
-            <div class="quiz-option">Opção B</div>
-            <div class="quiz-option">Opção C</div>
+            <div class="quiz-option">Teatro, dança, música, fotografia e artesanato</div>
+            <div class="quiz-option">Cinema, culinária e esportes radicais</div>
+            <div class="quiz-option">Foi um dos primeiros bairros suburbanos e palco de movimentos sindicais no século XX</div>
         </div>
         <button class="quiz-next-btn">Próximo</button>
     </div>
+    <script>
+    document.querySelectorAll('.quiz-option').forEach(option => {
+    option.addEventListener('click', function() {
+        document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+    });
+    </script>
 </body>
 </html>
