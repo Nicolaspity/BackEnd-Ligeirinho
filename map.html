@@ -65,13 +65,13 @@
         #robot {
             width: 8vw;    /* aumenta o tamanho relativo à largura da tela */
             height: 8vw;
-            background: url('https://img.icons8.com/color/48/000000/robot.png') no-repeat center;
+            background: url('src/Ligeirinho.gif') no-repeat center;
             background-size: contain;
             position: absolute;
             z-index: 1000;
             pointer-events: none;
-            animation: float 2s ease-in-out infinite;
-            filter: drop-shadow(0 0 8px rgba(250, 148, 11, 0.5));
+            /*animation: float 2s ease-in-out infinite;*/
+            /*filter: drop-shadow(0 0 8px rgba(250, 148, 11, 0.5));*/
         }
         @keyframes float {
             0% { transform: translateY(0); }
@@ -167,9 +167,88 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
         }
+        #welcome-overlay {
+        position: fixed;
+        z-index: 3000;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(30, 30, 40, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInBg 0.6s;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #welcome-popup {
+            background: rgba(45, 48, 51, 0.97);
+            border: 3px solid;
+            border-image: linear-gradient(to right, #1C8CD1, #FA940B) 1;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(28,140,209,0.25), 0 0 0 4px rgba(250,148,11,0.08);
+            padding: 36px 32px 28px 32px;
+            min-width: clamp(260px, 60vw, 400px);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            animation: popupIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes popupIn {
+            from { transform: scale(0.8) translateY(40px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        #welcome-robot-img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 10px #FA940B88);
+            animation: robotFloat 2.2s ease-in-out infinite;
+        }
+        @keyframes robotFloat {
+            0% { transform: translateY(0);}
+            50% { transform: translateY(-10px);}
+            100% { transform: translateY(0);}
+        }
+        #welcome-popup h1 {
+            color: #FA940B;
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+            margin: 0 0 24px 0;
+            text-shadow: 0 0 8px #1C8CD144;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        #welcome-start-btn {
+            background: linear-gradient(90deg, #1C8CD1 60%, #FA940B 100%);
+            color: #fff;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 38px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #1C8CD144;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        #welcome-start-btn:hover, #welcome-start-btn:focus {
+            background: linear-gradient(90deg, #FA940B 60%, #1C8CD1 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px #FA940B44;
+        }
     </style>
 </head>
 <body>
+        <div id="welcome-overlay">
+    <div id="welcome-popup">
+        <img src="src/Ligeirinho.gif" alt="Robô" id="welcome-robot-img" />
+        <h1>Olá, seja bem vindo. 
+            Estamos felizes que você esteja aqui!
+            Utilize o JoyStick para controlar o robô e explorar os SESCs do Rio de Janeiro e obter conhecimento!
+            <br> Está pronto para começar?
+        </h1>
+        <button id="welcome-start-btn">Começar</button>
+    </div>
+    </div>
     <div id="map"></div>
     <div id="robot"></div>
     <div id="joystick-container">
@@ -395,6 +474,13 @@
 
         // Força a atualização inicial
         updateRobotPosition();
+        // ...no final do seu <script> principal, antes de </body>...
+        document.getElementById('welcome-start-btn').addEventListener('click', function() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.animation = 'fadeOutBg 0.5s forwards';
+            document.getElementById('welcome-popup').style.animation = 'popupOut 0.5s forwards';
+            setTimeout(() => overlay.remove(), 500);
+        });
     </script>
 </body>
 </html>
