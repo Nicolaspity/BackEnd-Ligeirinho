@@ -63,8 +63,8 @@
             box-shadow: inset 0 0 20px rgba(28, 140, 209, 0.3);
         }
         #robot {
-            width: 50px;
-            height: 50px;
+            width: 8vw;    /* aumenta o tamanho relativo à largura da tela */
+            height: 8vw;
             background: url('https://img.icons8.com/color/48/000000/robot.png') no-repeat center;
             background-size: contain;
             position: absolute;
@@ -206,28 +206,28 @@
                 lat: -22.9406, 
                 lng: -43.1816, 
                 description: 'Espaço cultural com teatro, exposições e atividades educativas.',
-                image: 'https://images.unsplash.com/photo-1516321310764-8d9c7c7d2d0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' // Placeholder
+                image: 'src/sesc-botafogo.jpeg' // Placeholder
             },
             { 
                 name: 'SESC Quitandinha', 
                 lat: -22.5278, 
                 lng: -43.2125, 
                 description: 'Palácio histórico em Petrópolis com eventos culturais.',
-                image: 'https://images.unsplash.com/photo-1599423300746-b62533397364?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' // Placeholder
+                image: 'src/sesc-quitandinha.jpg' // Placeholder
             },
             { 
                 name: 'SESC Copacabana', 
                 lat: -22.9690, 
                 lng: -43.1870, 
                 description: 'Unidade com piscina, shows e oficinas culturais.',
-                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' // Placeholder
+                image: 'src/sesc-copacabana.jpg' // Placeholder
             },
             { 
                 name: 'SESC Tijuca', 
                 lat: -22.9219, 
                 lng: -43.2350, 
                 description: 'Centro de lazer com esportes, shows e cursos.',
-                image: 'https://images.unsplash.com/photo-1523741543316-bdeed047ff6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80' // Placeholder
+                image: 'src/sesc-tijuca.jpg' // Placeholder
             }
         ];
 
@@ -270,9 +270,10 @@
         // Função para atualizar a posição do robô, linhas guias e popups
         function updateRobotPosition() {
             const point = map.latLngToContainerPoint([robotLat, robotLng]);
-            robot.style.left = point.x - 25 + 'px';
-            robot.style.top = point.y - 25 + 'px';
-            map.panTo([robotLat, robotLng], { animate: true, duration: 0.1 });
+            const robotSize = robot.offsetWidth / 2;
+            robot.style.left = point.x - robotSize + 'px';
+            robot.style.top = point.y - robotSize + 'px';
+            map.setView([robotLat, robotLng], 15, { animate: true, duration: 0.1 });
 
             const bounds = map.getBounds();
             sescLocations.forEach((location, index) => {
