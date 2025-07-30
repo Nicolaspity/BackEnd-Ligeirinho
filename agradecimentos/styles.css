@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap');
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.bg-gradient{
+    position: absolute;
+    width: 100%;
+    height: 3000px;
+    top: 0px;
+    background: linear-gradient(199.89deg, #E8098A 13.28%, #5B2B8E 53.85%, #39338D 94.35%);
+}
+.top-section{
+    margin-top: 0;
+    margin-left: 100px;
+    padding: 0;
+    flex-direction: row;
+    display: flex;
+
+}
+.left-top{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 90px;
+    margin-top: 90px;
+
+    background: linear-gradient(226.37deg, #F17721 26.6%, #EFE708 150.73%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.left-top h1{
+    line-height: 140px;
+}
+.right-top{
+    padding: 100px;
+}
+.right-top img{
+    height: 783px;
+    width: 621px;
+}
+.middle-section{
+    margin-top: 0;
+    margin-left: 100px;
+    padding: 0;
+    flex-direction: row-reverse;
+    display: flex;
+
+}
+.left-middle{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 1000px;
+    margin-right: 200px;
+}
+.right-middle h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 86px;
+    line-height: 121px;
+
+    background: linear-gradient(210.3deg, #F17721 18.44%, #EFE708 95.64%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
+.right-middle p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 48px;
+
+    background: linear-gradient(206.19deg, #F17721 12.62%, #EFE708 94.29%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
+#logo{
+    margin-bottom:50px;
+}
+.bottom-section{
+    display: flex;
+    flex-direction: line;
+    justify-content: center;
+    align-items: center;
+}
