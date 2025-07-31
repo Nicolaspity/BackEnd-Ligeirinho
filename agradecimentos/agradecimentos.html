@@ -12,7 +12,7 @@
       <span class="educacao">+<b>EDUCAÇÃO</b></span>
     </header>
     <main>
-      <section class="top-section">
+      <section class="top-section fade-up">
         <div class="left-top">
           <h1>Parabéns por ter<br>chegado ao fim<br>da jornada!</h1>
           <div class="voce-mereceu">Você mereceu!</div>
@@ -21,12 +21,29 @@
           <img src="assets/redentor.svg">
         </div>
       </section>
-      <section class="middle-section">
+      <section class="middle-section fade-up">
         <div class="right-middle">
           <h2>A Equipe F5...</h2>
-          <p class="desc">
+          <!--<p class="desc">
             agradece a oportunidade e o convite ao Sesc e a nossa honrável professora de robótica, Priscila Bento. Poder estar trabalhando em algo que ajude a ampliar e divulgar o conhecimento e participar disso através da tecnologia atual, é extremamente gratificante e enriquecedor em nossa caminhada acadêmica.<br>
             Nossa mensagem final é mais uma vez mostrar nossa gratidão, a você, herói contra o Caos no Rio de Janeiro, que concluiu essa nossa jornada. Nunca se esqueça do quão capaz e importante para o mundo o és. Tem coisas que só você é capaz de contribuir. A jornada não acaba aqui, ela continua.
+          </p>-->
+          <p class="desc">
+            <bold>agradece ao Sesc pela oportunidade e à nossa estimada professora de Robótica, Priscila Bento, pelo convite e orientação.</bold>
+
+            Participar de um projeto que promove o conhecimento por meio da tecnologia é uma experiência enriquecedora e motivadora em nossa trajetória acadêmica.
+
+            Nosso agradecimento final é a você, herói que enfrentou o Caos no Rio de Janeiro e concluiu essa missão.
+            Nunca esqueça: o mundo precisa do que só você pode oferecer.
+            
+            
+          </p>
+          <p class="desc">
+            <i>"Conhece a ti mesmo e torna-te quem tu és"</i>
+            <i>- Sócrates</i>
+          </p>
+          <p class="desc">
+            <bold>A jornada continua.</bold>
           </p>
         </div>
         <div class="left-middle">
@@ -35,12 +52,28 @@
           
         </div>
       </section>
-      <section class="bottom-section">
+      <section class="bottom-section fade-up">
         <div class="foto-equipe">
           <div class="foto-placeholder"><img src="assets/placeholder-foto.svg"></div>
         </div>
       </section>
     </main>
   </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    fadeEls.forEach(el => observer.observe(el));
+  });
+  </script>
 </body>
 </html>
