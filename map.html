@@ -65,18 +65,19 @@
         #robot {
             width: 8vw;    /* aumenta o tamanho relativo à largura da tela */
             height: 8vw;
-            background: url('src/Ligeirinho.gif') no-repeat center;
+            background: url('src/ligeirinho.png') no-repeat center;
             background-size: contain;
             position: absolute;
             z-index: 1000;
             pointer-events: none;
-            /*animation: float 2s ease-in-out infinite;*/
-            /*filter: drop-shadow(0 0 8px rgba(250, 148, 11, 0.5));*/
+            animation: float 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(250, 148, 11, 0.5));
+            --robot-scale: 1; 
         }
         @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
+            0% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
+            50% { transform: translateY(-5px) scaleX(var(--robot-scale, 1)); }
+            100% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
         }
         #joystick-container {
             position: fixed;
@@ -198,8 +199,8 @@
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         #welcome-robot-img {
-            width: 90px;
-            height: 90px;
+            width: auto;
+            height: auto;
             margin-bottom: 18px;
             filter: drop-shadow(0 0 10px #FA940B88);
             animation: robotFloat 2.2s ease-in-out infinite;
@@ -445,7 +446,7 @@
             targetDirectionX = 0;
             targetDirectionY = 0;
         }
-
+        let lastScale = 1;
         // Loop de animação para movimentação fluida
         function gameLoop() {
             directionX += (targetDirectionX - directionX) * lerpFactor;
@@ -462,6 +463,13 @@
             } else {
                 map.panTo([robotLat, robotLng], { animate: true, duration: 0.1 });
             }
+            let scale = 1;
+            if (directionX > 0.05) {
+                lastScale = 1;
+            } else if (directionX < -0.05) {
+                lastScale = -1;
+            }
+            robot.style.setProperty('--robot-scale', lastScale);
 
             requestAnimationFrame(gameLoop);
         }
