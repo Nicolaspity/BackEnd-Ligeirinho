@@ -1,0 +1,493 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Robozinho no Rio</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-color: #2D3033;
+            touch-action: manipulation;
+        }
+        #map {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #303350, #2D3033);
+            filter: hue-rotate(200deg) saturate(60%) brightness(90%) contrast(110%);
+            box-shadow: inset 0 0 20px rgba(28, 140, 209, 0.3);
+        }
+        #robot {
+            width: 8vw;    /* aumenta o tamanho relativo à largura da tela */
+            height: 8vw;
+            background: url('src/ligeirinho.png') no-repeat center;
+            background-size: contain;
+            position: absolute;
+            z-index: 1000;
+            pointer-events: none;
+            animation: float 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(250, 148, 11, 0.5));
+            --robot-scale: 1; 
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
+            50% { transform: translateY(-5px) scaleX(var(--robot-scale, 1)); }
+            100% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
+        }
+        #joystick-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: min(15vw, 150px);
+            height: min(15vw, 150px);
+            z-index: 2000;
+        }
+        #joystick {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #39477A, #3F79A8 80%);
+            border-radius: 50%;
+            position: relative;
+            touch-action: none;
+            box-shadow: 0 0 15px rgba(63, 121, 168, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+            opacity: 0.9;
+        }
+        #joystick-knob {
+            width: min(6vw, 60px);
+            height: min(6vw, 60px);
+            background: radial-gradient(circle, #FA940B, #FA940B 50%, rgba(250, 148, 11, 0.7));
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            border: 2px solid rgba(28, 140, 209, 0.8);
+            box-shadow: 0 0 10px rgba(250, 148, 11, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        #joystick-knob:active {
+            cursor: grabbing;
+        }
+        .sesc-marker div {
+            background: radial-gradient(circle, #1C8CD1, #3F79A8);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid rgba(250, 148, 11, 0.8);
+            animation: pulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(28, 140, 209, 0.5);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .leaflet-popup-content-wrapper {
+            background: rgba(45, 48, 51, 0.85);
+            color: #FA940B;
+            border: 3px solid;
+            border-image: linear-gradient(to right, #1C8CD1, #FA940B) 1;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: clamp(14px, 3vw, 16px);
+            min-width: clamp(200px, 50vw, 300px); /* Popup maior */
+            box-shadow: 0 4px 12px rgba(28, 140, 209, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            font-family: 'Poppins', sans-serif;
+        }
+        .leaflet-popup-content {
+            margin: 8px;
+        }
+        .leaflet-popup-content img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .leaflet-popup-tip {
+            background: linear-gradient(#1C8CD1, #FA940B);
+        }
+        .leaflet-popup-content h3 {
+            margin: 0 0 8px 0;
+            font-size: clamp(16px, 3.5vw, 18px);
+            color: #FA940B;
+            text-shadow: 0 0 4px rgba(250, 148, 11, 0.5);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        .leaflet-popup-content p {
+            margin: 0;
+            color: #FFFFFF;
+            font-size: clamp(12px, 2.5vw, 14px);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+        #welcome-overlay {
+        position: fixed;
+        z-index: 3000;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(30, 30, 40, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInBg 0.6s;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #welcome-popup {
+            background: rgba(45, 48, 51, 0.97);
+            border: 3px solid;
+            border-image: linear-gradient(to right, #1C8CD1, #FA940B) 1;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(28,140,209,0.25), 0 0 0 4px rgba(250,148,11,0.08);
+            padding: 36px 32px 28px 32px;
+            min-width: clamp(260px, 60vw, 400px);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            animation: popupIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes popupIn {
+            from { transform: scale(0.8) translateY(40px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        #welcome-robot-img {
+            width: auto;
+            height: auto;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 10px #FA940B88);
+            animation: robotFloat 2.2s ease-in-out infinite;
+        }
+        @keyframes robotFloat {
+            0% { transform: translateY(0);}
+            50% { transform: translateY(-10px);}
+            100% { transform: translateY(0);}
+        }
+        #welcome-popup h1 {
+            color: #FA940B;
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+            margin: 0 0 24px 0;
+            text-shadow: 0 0 8px #1C8CD144;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        #welcome-start-btn {
+            background: linear-gradient(90deg, #1C8CD1 60%, #FA940B 100%);
+            color: #fff;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 38px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #1C8CD144;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        #welcome-start-btn:hover, #welcome-start-btn:focus {
+            background: linear-gradient(90deg, #FA940B 60%, #1C8CD1 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px #FA940B44;
+        }
+    </style>
+</head>
+<body>
+        <div id="welcome-overlay">
+    <div id="welcome-popup">
+        <img src="src/ligeirinho.png" alt="Robô" id="welcome-robot-img" />
+        <h1>Parabéns, você fez um trabalho e tanto até aqui pela história do Rio!
+            Por que não paramos um pouco para ir para serra e desfrutar de um passeio no SESC Quitandinha? 
+            <br> Vamos lá conferir, temos um longo caminho!
+        </h1>
+        <button id="welcome-start-btn">Vamos lá!</button>
+    </div>
+    </div>
+    <div id="map"></div>
+    <div id="robot"></div>
+    <div id="joystick-container">
+        <div id="joystick">
+            <div id="joystick-knob"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Definir limites geográficos para o estado do Rio de Janeiro
+        const rioBounds = L.latLngBounds(
+            [-23.35, -44.8], // Sudoeste (Angra dos Reis)
+            [-21.6, -41.0]   // Nordeste (Campos dos Goytacazes)
+        );
+
+        // Inicializa o mapa com limites
+        const map = L.map('map', {
+            zoomControl: false,
+            dragging: true,
+            touchZoom: true,
+            scrollWheelZoom: false,
+            maxBounds: rioBounds,
+            maxBoundsViscosity: 1.0
+        }).setView([-22.9068, -43.1729], 18);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        }).addTo(map);
+
+        // Adiciona marcadores para os locais do SESC com popups e imagens
+        const sescLocations = [
+            { 
+                name: 'SESC Botafogo', 
+                lat: -22.9406, 
+                lng: -43.1816, 
+                description: 'Espaço cultural com teatro, exposições e atividades educativas. CONCLUÍDO',
+                image: 'src/sesc-botafogo.jpeg'
+            },
+            { 
+                name: 'SESC Quitandinha', 
+                lat: -22.5278, 
+                lng: -43.2125, 
+                description: 'Palácio histórico em Petrópolis com eventos culturais.',
+                image: 'src/sesc-quitandinha.jpg'
+            },
+            { 
+                name: 'SESC Copacabana', 
+                lat: -22.9690, 
+                lng: -43.1870, 
+                description: 'Unidade com piscina, shows e oficinas culturais. CONCLUÍDO',
+                image: 'src/sesc-copacabana.jpg'
+            }, 
+            { 
+                name: 'SESC Tijuca', 
+                lat: -22.9219, 
+                lng: -43.2350, 
+                description: 'Centro de lazer com esportes, shows e cursos. CONCLUÍDO',
+                image: 'src/sesc-tijuca.jpg'
+            }
+        ];
+
+        const sescMarkers = sescLocations.map(location => {
+            const marker = L.marker([location.lat, location.lng], {
+                icon: L.divIcon({
+                    className: 'sesc-marker',
+                    html: `<div></div>`,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                })
+            }).addTo(map).bindPopup(
+                `<img src="${location.image}" alt="${location.name}">
+                <h3>${location.name}</h3>
+                <p>${location.description}</p>`,
+                { autoClose: false, closeOnClick: false, autoPan: false }
+            );
+            return marker;
+        });
+
+        // Linhas guias para os SESCs
+        const guideLines = sescLocations.map(() => L.polyline([], {
+            color: '#1C8CD1',
+            weight: 2,
+            opacity: 0.6,
+            dashArray: '5, 10'
+        }));
+
+        // Elemento do robô
+        const robot = document.getElementById('robot');
+        let robotLat = -22.9690;
+        let robotLng = -43.1870;
+        let robotSpeed = 0.0002;
+        let directionX = 0;
+        let directionY = 0;
+        let targetDirectionX = 0;
+        let targetDirectionY = 0;
+        const lerpFactor = 0.1;
+
+        // Função para atualizar a posição do robô, linhas guias e popups
+        function updateRobotPosition() {
+            const point = map.latLngToContainerPoint([robotLat, robotLng]);
+            const robotSize = robot.offsetWidth / 2;
+            robot.style.left = point.x - robotSize + 'px';
+            robot.style.top = point.y - robotSize + 'px';
+            map.setView([robotLat, robotLng], 15, { animate: true, duration: 0.1 });
+
+            const bounds = map.getBounds();
+            sescLocations.forEach((location, index) => {
+                const markerLatLng = L.latLng(location.lat, location.lng);
+                if (!bounds.contains(markerLatLng)) {
+                    guideLines[index].setLatLngs([[robotLat, robotLng], [location.lat, location.lng]]);
+                    if (!map.hasLayer(guideLines[index])) {
+                        guideLines[index].addTo(map);
+                    }
+                    sescMarkers[index].closePopup();
+                } else {
+                    if (map.hasLayer(guideLines[index])) {
+                        map.removeLayer(guideLines[index]);
+                    }
+                    sescMarkers[index].openPopup();
+                }
+            });
+        }
+
+        // Controle do joystick
+        const joystick = document.getElementById('joystick');
+        const knob = document.getElementById('joystick-knob');
+        let isDragging = false;
+        let joystickCenterX, joystickCenterY;
+
+        // Eventos de mouse
+        knob.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            const rect = joystick.getBoundingClientRect();
+            joystickCenterX = rect.left + rect.width / 2;
+            joystickCenterY = rect.top + rect.height / 2;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - joystickCenterX;
+            const dy = e.clientY - joystickCenterY;
+            updateJoystickPosition(dx, dy);
+        });
+
+        document.addEventListener('mouseup', () => {
+            stopDragging();
+        });
+
+        // Eventos de toque
+        knob.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            const rect = joystick.getBoundingClientRect();
+            joystickCenterX = rect.left + rect.width / 2;
+            joystickCenterY = rect.top + rect.height / 2;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const dx = touch.clientX - joystickCenterX;
+            const dy = touch.clientY - joystickCenterY;
+            updateJoystickPosition(dx, dy);
+        });
+
+        document.addEventListener('touchend', () => {
+            stopDragging();
+        });
+
+        // Função para atualizar a posição do joystick
+        function updateJoystickPosition(dx, dy) {
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = Math.min(15 * window.innerWidth / 100, 75);
+            let angle = Math.atan2(dy, dx);
+            let boundedDistance = Math.min(distance, maxDistance);
+            let knobX = boundedDistance * Math.cos(angle);
+            let knobY = boundedDistance * Math.sin(angle);
+
+            knob.style.left = `calc(50% + ${knobX}px)`;
+            knob.style.top = `calc(50% + ${knobY}px)`;
+
+            let speedFactor = boundedDistance / maxDistance;
+            targetDirectionX = speedFactor * Math.cos(angle);
+            targetDirectionY = speedFactor * -Math.sin(angle);
+        }
+
+        // Função para parar o arrasto
+        function stopDragging() {
+            isDragging = false;
+            knob.style.left = '50%';
+            knob.style.top = '50%';
+            targetDirectionX = 0;
+            targetDirectionY = 0;
+        }
+        let lastScale = 1;
+        // Loop de animação para movimentação fluida
+        function gameLoop() {
+            directionX += (targetDirectionX - directionX) * lerpFactor;
+            directionY += (targetDirectionY - directionY) * lerpFactor;
+
+            if (Math.abs(directionX) > 0.01 || Math.abs(directionY) > 0.01) {
+                let newLat = robotLat + robotSpeed * directionY;
+                let newLng = robotLng + robotSpeed * directionX;
+                if (rioBounds.contains([newLat, newLng])) {
+                    robotLat = newLat;
+                    robotLng = newLng;
+                    updateRobotPosition();
+                }
+            } else {
+                map.panTo([robotLat, robotLng], { animate: true, duration: 0.1 });
+            }
+            let scale = 1;
+            if (directionX > 0.05) {
+                lastScale = 1;
+            } else if (directionX < -0.05) {
+                lastScale = -1;
+            }
+            robot.style.setProperty('--robot-scale', lastScale);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Inicia o loop de animação
+        requestAnimationFrame(gameLoop);
+
+        // Ajusta a posição do robô ao redimensionar a janela
+        window.addEventListener('resize', updateRobotPosition);
+
+        // Força a atualização inicial
+        updateRobotPosition();
+        // ...no final do seu <script> principal, antes de </body>...
+        document.getElementById('welcome-start-btn').addEventListener('click', function() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.animation = 'fadeOutBg 0.5s forwards';
+            document.getElementById('welcome-popup').style.animation = 'popupOut 0.5s forwards';
+            setTimeout(() => overlay.remove(), 500);
+        });
+    </script>
+</body>
+</html>

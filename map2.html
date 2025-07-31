@@ -242,12 +242,10 @@
         <div id="welcome-overlay">
     <div id="welcome-popup">
         <img src="src/ligeirinho.png" alt="Robô" id="welcome-robot-img" />
-        <h1>Olá, seja bem vindo. 
-            Estamos felizes que você esteja aqui!
-            Utilize o JoyStick para controlar o robô e explorar os SESCs do Rio de Janeiro e obter conhecimento!
-            <br> Está pronto para começar?
+        <h1>Um novo SESC foi desbloqueado! 
+            <br> Vamos lá conferir!
         </h1>
-        <button id="welcome-start-btn">Começar</button>
+        <button id="welcome-start-btn">Vamos lá!</button>
     </div>
     </div>
     <div id="map"></div>
@@ -286,28 +284,28 @@
                 lat: -22.9406, 
                 lng: -43.1816, 
                 description: 'Espaço cultural com teatro, exposições e atividades educativas.',
-                image: 'src/sesc-botafogo.jpeg' // Placeholder
+                image: 'src/sesc-botafogo.jpeg'
             },
-            { 
+            /*{ 
                 name: 'SESC Quitandinha', 
                 lat: -22.5278, 
                 lng: -43.2125, 
                 description: 'Palácio histórico em Petrópolis com eventos culturais.',
-                image: 'src/sesc-quitandinha.jpg' // Placeholder
+                image: 'src/sesc-quitandinha.jpg'
             },
             { 
                 name: 'SESC Copacabana', 
                 lat: -22.9690, 
                 lng: -43.1870, 
                 description: 'Unidade com piscina, shows e oficinas culturais.',
-                image: 'src/sesc-copacabana.jpg' // Placeholder
-            },
+                image: 'src/sesc-copacabana.jpg'
+            }, */
             { 
                 name: 'SESC Tijuca', 
                 lat: -22.9219, 
                 lng: -43.2350, 
-                description: 'Centro de lazer com esportes, shows e cursos.',
-                image: 'src/sesc-tijuca.jpg' // Placeholder
+                description: 'Centro de lazer com esportes, shows e cursos. CONCLUÍDO',
+                image: 'src/sesc-tijuca.jpg'
             }
         ];
 
@@ -338,8 +336,8 @@
 
         // Elemento do robô
         const robot = document.getElementById('robot');
-        let robotLat = -22.9068;
-        let robotLng = -43.1729;
+        let robotLat = -22.9219;
+        let robotLng = -43.2350;
         let robotSpeed = 0.0002;
         let directionX = 0;
         let directionY = 0;

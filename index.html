@@ -45,7 +45,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(63, 121, 168, 0.7);
       z-index: 1;
     }
     .logo {
@@ -54,6 +53,12 @@
       border-radius: 15px;
       margin-bottom: 20px;
       animation: fadeIn 2s ease-in-out;
+    }
+    .sesceducacao {
+      width: 300px;
+      height: 100px;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out 0.5s backwards;
     }
     .header h1 {
       font-size: 4em;
@@ -96,11 +101,13 @@
       display: flex;
       justify-content: center;
       gap: 20px;
+      width: auto;
+      height: auto;
       flex-wrap: wrap;
     }
     .team-photos img {
-      width: 400px;
-      height: 300px;
+      width: 70%;
+      height: 70%;
       border-radius: 20px;
       object-fit: cover;
     }
@@ -152,6 +159,7 @@
     <div class="header">
       <img class="logo" src="src/logo.jpeg" alt="Logo Equipe F5">
       <h1>Equipe F5</h1>
+      <img class="sesceducacao" src="src/logosescmaiseducacao.svg" alt="Logo SESC Educação">
     </div>
     <div class="section">
       <h2>História</h2>
@@ -184,7 +192,7 @@
     });
   });
   document.getElementById('start-btn').onclick = function() {
-    window.location.href = 'map.html';
+    window.location.href = 'map1.html';
   };
 </script>
 </body>
