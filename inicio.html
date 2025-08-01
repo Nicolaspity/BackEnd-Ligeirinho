@@ -102,11 +102,11 @@
 
         /* backgrounds */
         #page1 { background: linear-gradient(to bottom, #fff6d3, #fcd89d); }
-        #page2 { background: url('../src/riodejaneiro.jpg') no-repeat center/cover; }
-        #page3 { background: url('../src/caos.jpg') no-repeat center/cover; }
-        #page4 { background: url('../src/page4.png') no-repeat center/cover; }
-        #page5 { background: url('../src/page5.jpg') no-repeat center/cover; }
-        #page6 { background: url('../src/sesc-tijucaIA.jpg') no-repeat center/cover; }
+        #page2 { background: url('src/riodejaneiro.jpg') no-repeat center/cover; }
+        #page3 { background: url('src/caos.jpg') no-repeat center/cover; }
+        #page4 { background: url('src/page4.png') no-repeat center/cover; }
+        #page5 { background: url('src/page5.jpg') no-repeat center/cover; }
+        #page6 { background: url('src/sesc-tijucaIA.jpg') no-repeat center/cover; }
 
         /* Página 1 – envelope (CÓDIGO CORRIGIDO) */
         .envelope {
@@ -118,7 +118,7 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: url('../src/carta1.png');
+            background-image: url('src/carta1.png');
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
@@ -136,7 +136,7 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: url('../src/carta2.png');
+            background-image: url('src/carta2.png');
             transform-origin: 100% 32%;
             transition: transform 1s ease;
         }
@@ -148,7 +148,7 @@
         
         /* Página 2 – mensagem */
         .msg-box {
-            background: url(../src/cartabox.png) center/cover; width: 800px;
+            background: url(src/cartabox.png) center/cover; width: 800px;
             height: 400px;
             font-size: 22px; font-style: italic; text-align: center;
             display: flex; align-items: center; justify-content: center; gap: 30px;
@@ -231,7 +231,7 @@
     ">
         <div class="ligeirinho-wrapper">
             <img
-                src="../src/ligeirinho.png"
+                src="src/ligeirinho.png"
                 alt="Ligeirinho"
                 style="width: 500px; max-width:100%; height:auto;"
             >
@@ -329,7 +329,7 @@
     });
 
     btnComecar.addEventListener('click', () => {
-        window.location.href = '../map.html';
+        window.location.href = 'map1.html';
     });
 </script>
 </body>
