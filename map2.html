@@ -325,6 +325,9 @@
             );
             return marker;
         });
+        sescMarkers[0].on('click', function() {
+            window.location.href = 'infopages/botafogo.html';
+        });
 
         // Linhas guias para os SESCs
         const guideLines = sescLocations.map(() => L.polyline([], {
