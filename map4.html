@@ -326,6 +326,9 @@
             );
             return marker;
         });
+            sescMarkers[1].on('click', function() {
+            window.location.href = 'infopages/quitandinha.html';
+        });
 
         // Linhas guias para os SESCs
         const guideLines = sescLocations.map(() => L.polyline([], {
