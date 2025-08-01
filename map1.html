@@ -327,6 +327,9 @@
             );
             return marker;
         });
+        sescMarkers[0].on('click', function() {
+            window.location.href = 'infopages/tijuca.html';
+        });
 
         // Linhas guias para os SESCs
         const guideLines = sescLocations.map(() => L.polyline([], {
