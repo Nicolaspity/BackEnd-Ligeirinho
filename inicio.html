@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Viagem no Tempo - RJ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* reset & base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #111;
+            overflow: hidden;
+        }
+        .page {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 0.6s ease;
+            opacity: 1; z-index: 1;
+        }
+        .hidden {
+            opacity: 0; pointer-events: none;
+        }
+        .fade-out {
+            opacity: 0 !important;
+            transition: opacity 0.6s ease;
+        }
+
+        /* fade+scale para todas as páginas */
+        @keyframes fadeScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .enter-page {
+            animation: fadeScale 0.6s ease forwards;
+        }
+
+        /* bobbing (acima e abaixo) */
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-10px); }
+        }
+
+        /* entrada do Ligeirinho + bobbing */
+        @keyframes enterLigeirinho {
+            from {
+                opacity: 0;
+                transform: translateX(-150%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+        .ligeirinho-wrapper {
+            position: relative;
+            opacity: 0;
+        }
+        .ligeirinho-wrapper.enter-ligeirinho {
+            animation:
+                enterLigeirinho 0.8s ease-out forwards,
+                bob 2s ease-in-out 1.1s infinite;
+        }
+
+        /* partículas de fumaça */
+        .smoke {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            width: 10px; height: 10px;
+            background: rgba(200,200,200,0.7);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: smokeUp 2s ease-out infinite;
+        }
+        .smoke::before, .smoke::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 8px; height: 8px;
+            background: rgba(200,200,200,0.5);
+            border-radius: 50%;
+        }
+        .smoke::before {
+            left: -15px;
+            animation: smokeUp 2.5s ease-out 0.5s infinite;
+        }
+        .smoke::after {
+            left: 15px;
+            width: 10px; height: 10px;
+            background: rgba(255, 174, 0, 0.5);
+            animation: smokeUp 2.2s ease-out 1s infinite;
+        }
+        @keyframes smokeUp {
+            0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+            80%  { opacity: 0; transform: translate(-50%, -80px) scale(2); }
+            100% { opacity: 0; transform: translate(-50%, -100px) scale(2.5); }
+        }
+
+        /* backgrounds */
+        #page1 { background: linear-gradient(to bottom, #fff6d3, #fcd89d); }
+        #page2 { background: url('../src/riodejaneiro.jpg') no-repeat center/cover; }
+        #page3 { background: url('../src/caos.jpg') no-repeat center/cover; }
+        #page4 { background: url('../src/page4.png') no-repeat center/cover; }
+        #page5 { background: url('../src/page5.jpg') no-repeat center/cover; }
+        #page6 { background: url('../src/sesc-tijucaIA.jpg') no-repeat center/cover; }
+
+        /* Página 1 – envelope (CÓDIGO CORRIGIDO) */
+        .envelope {
+            width: 220px;
+            height: 160px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('../src/carta1.png');
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .envelope:hover { 
+            transform: scale(1.07); 
+        }
+
+        .flap {
+            position: absolute;
+            top: -34px;
+            left: 2px;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('../src/carta2.png');
+            transform-origin: 100% 32%;
+            transition: transform 1s ease;
+        }
+
+        /* Alteração: A animação da aba agora acontece com o hover */
+        .envelope:hover .flap {
+            transform: rotateX(180deg);
+        }
+        
+        /* Página 2 – mensagem */
+        .msg-box {
+            background: url(../src/cartabox.png) center/cover; width: 800px;
+            height: 400px;
+            font-size: 22px; font-style: italic; text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 30px;
+        }
+
+        /* botões */
+        .btn-next {
+            padding: 12px 24px;
+            font-size: 18px; font-weight: bold;
+            background: #ff914d; color: #fff;
+            border: none; border-radius: 12px;
+            cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background 0.3s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-next:hover {
+            background: #e87732;
+            transform: scale(1.05);
+        }
+
+        /* legendas (páginas 3 e 4) */
+        .caption-box {
+            display: flex; align-items: center; justify-content: center; gap: 30px;
+            position: absolute; bottom: 80px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,147,86,0.9); color: #fff;
+            padding: 16px 24px; border-radius: 14px;
+            font-size: 20px; font-style: italic; text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            max-width: 80%;
+            opacity: 0; transition: opacity 0.8s ease 0.5s;
+        }
+        .show .caption-box { opacity: 1; }
+    </style>
+</head>
+<body>
+
+<div id="page1" class="page">
+    <div class="envelope" id="envelope">
+        <div class="flap"></div>
+    </div>
+</div>
+
+<div id="page2" class="page hidden">
+    <div class="msg-box">
+        <div>
+            Você é um grande apreciador de <br>
+            história e viaja até o <br>
+            Rio de Janeiro a fim de descobrir <br>
+            mais sobre o nosso estado
+        </div>
+        <button id="btnNext" class="btn-next">Próximo</button>
+    </div>
+</div>
+
+<div id="page3" class="page hidden">
+    <div class="caption-box">
+        <div>
+            Uma grande viagem no tempo acontece, <br>
+            após o grande Caos dominar o Rio de Janeiro
+        </div>
+        <button id="btnToPage4" class="btn-next">Próximo</button>
+    </div>
+</div>
+
+<div id="page4" class="page hidden">
+    <div class="caption-box">
+        <div>
+            Agora você precisa reconstruir a história <br>
+            e descobrir as origens do Caos no Rio de Janeiro.
+        </div>
+        <button id="btnToPage5" class="btn-next">Próximo</button>
+    </div>
+</div>
+
+<div id="page5" class="page hidden">
+    <div class="ligeirinho-container" style="
+        display: flex; align-items: center; justify-content: center;
+        gap: 40px; flex-wrap: wrap; max-width: 90%; padding: 20px;
+    ">
+        <div class="ligeirinho-wrapper">
+            <img
+                src="../src/ligeirinho.png"
+                alt="Ligeirinho"
+                style="width: 500px; max-width:100%; height:auto;"
+            >
+            <div class="smoke"></div>
+        </div>
+        <div style="
+            background: #fff; border: 3px solid #299ec7;
+            padding: 24px 28px; border-radius: 12px;
+            font-size: 20px; color: #222; font-style: italic;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        ">
+            <p>Olá, meu nome é <strong>Ligeirinho</strong>, o grande bibliotecário do Rio.</p>
+            <p>O Caos dominou todo o nosso conhecimento, precisamos de você para resgatar toda a nossa fonte da vida – <strong>nossa história</strong>.</p>
+        </div>
+    </div>
+    <button id="btnToPage6" class="btn-next" style="margin-top: 40px;">Próximo</button>
+</div>
+
+<div id="page6" class="page hidden">
+    <div style="
+        background: rgba(255,255,255,0.9);
+        padding: 20px 30px; border-radius: 10px;
+        border: 2px solid #1b6e94; font-size: 22px;
+        font-style: italic; text-align: center;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    ">
+        Topa embarcar nessa jornada? :-)
+    </div>
+    <button id="btnComecar" class="btn-next" style="margin-top: 30px;">Começar!</button>
+</div>
+
+<script>
+    const envelope    = document.getElementById('envelope');
+    const pages       = document.querySelectorAll('.page');
+    const page1       = document.getElementById('page1');
+    const page2       = document.getElementById('page2');
+    const page3       = document.getElementById('page3');
+    const page4       = document.getElementById('page4');
+    const page5       = document.getElementById('page5');
+    const page6       = document.getElementById('page6');
+    const btnNext     = document.getElementById('btnNext');
+    const btnToPage4  = document.getElementById('btnToPage4');
+    const btnToPage5  = document.getElementById('btnToPage5');
+    const btnToPage6  = document.getElementById('btnToPage6');
+    const btnComecar  = document.getElementById('btnComecar'); // Novo botão
+    const msgBox      = page2.querySelector('.msg-box');
+    const captionBox3 = page3.querySelector('.caption-box');
+    const captionBox4 = page4.querySelector('.caption-box');
+
+    // Função de transição otimizada
+    function transitionPage(fromPage, elementsToFade, toPage, callback) {
+        // Remove a página atual e esconde seus elementos
+        fromPage.classList.add('hidden');
+        if (elementsToFade) {
+          elementsToFade.forEach(el => el.classList.add('hidden'));
+        }
+
+        // Mostra a próxima página e executa o callback
+        toPage.classList.remove('hidden');
+        toPage.classList.add('show', 'enter-page');
+
+        if (typeof callback === 'function') callback();
+    }
+
+    envelope.addEventListener('click', () => {
+        envelope.classList.add('opened');
+        setTimeout(() => {
+            page1.classList.add('hidden');
+            page2.classList.remove('hidden');
+            page2.classList.add('enter-page');
+        }, 1000);
+    });
+
+    btnNext.addEventListener('click', () => {
+        transitionPage(page2, [msgBox, btnNext], page3, () => {
+            page3.classList.add('show');
+        });
+    });
+
+    btnToPage4.addEventListener('click', () => {
+        transitionPage(page3, [captionBox3], page4, () => {
+            page4.classList.add('show');
+        });
+    });
+
+    btnToPage5.addEventListener('click', () => {
+        transitionPage(page4, [captionBox4], page5, () => {
+            const wrapper = page5.querySelector('.ligeirinho-wrapper');
+            wrapper.classList.add('enter-ligeirinho');
+        });
+    });
+
+    btnToPage6.addEventListener('click', () => {
+        transitionPage(page5, [btnToPage6], page6);
+    });
+
+    btnComecar.addEventListener('click', () => {
+        window.location.href = '../map.html';
+    });
+</script>
+</body>
+</html>
