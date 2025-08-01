@@ -70,9 +70,14 @@
                 </div>
             </section>
             <div class="quiz-btn-container">
-                <a href="../quiz-pages/quiz-tijuca.html" class="quiz-btn">Participe do quiz!</a>
+                <button class="quiz-btn">Participe do quiz!</button>
             </div>
         </main>
     </div>
+    <script>
+      document.getElementById('quiz-btn').addEventListener('click', function() {
+        window.location.href = '../quiz-pages/quiz-tijuca.html';
+      });
+    </script>
 </body>
 </html>
