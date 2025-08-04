@@ -79,6 +79,147 @@
             50% { transform: translateY(-5px) scaleX(var(--robot-scale, 1)); }
             100% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
         }
+        #afterburner-btn {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        background: #3232ff;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        padding: 16px 32px;
+        font-size: 1.2em;
+        cursor: pointer;
+        z-index: 4000;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transition: background 0.2s;
+        }
+        #afterburner-btn:hover {
+        background: #1a1aff;
+        }
+        #afterburner-modal-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(30, 30, 40, 0.85);
+        z-index: 4500;
+        align-items: center;
+        justify-content: center;
+        }
+        #afterburner-modal {
+        background: #222b3c;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(28,140,209,0.25), 0 0 0 4px rgba(250,148,11,0.08);
+        padding: 36px 32px 28px 32px;
+        min-width: clamp(260px, 60vw, 400px);
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        }
+        #teleport-portal {
+        position: absolute;
+        z-index: 5000;
+        pointer-events: none;
+        }
+        #portal-effect {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #00f0ff 40%, #1C8CD1 70%, transparent 100%);
+        border: 5px solid #00f0ff;
+        box-shadow: 0 0 32px 12px #00f0ff99, 0 0 0 4px #fff3;
+        animation: portalPulse 1s infinite alternate;
+        pointer-events: auto;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+        @keyframes portalPulse {
+        0% { transform: scale(1); box-shadow: 0 0 32px 4px #00f0ff99, 0 0 0 4px #fff3;}
+        100% { transform: scale(1.18); box-shadow: 0 0 40px 10px #00f0ffcc, 0 0 0 4px #fff3;}
+        }
+        #portal-effect::after {
+        content: "Teleportar!";
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-shadow: 0 0 12px #1C8CD1, 0 0 4px #00f0ff;
+        pointer-events: none;
+        }
+        .sesc-list {
+        list-style: none;
+        padding: 0;
+        margin: 24px 0 0 0;
+        }
+        .sesc-item {
+        margin-bottom: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+        color: #fff;
+        font-size: 1.1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        user-select: none;
+        }
+        .sesc-concluido {
+        background: #4caf50;
+        opacity: 0.6;
+        pointer-events: none;
+        }
+        .sesc-objetivo {
+        background: #ff5436;
+        font-weight: bold;
+        box-shadow: 0 0 6px #ff5436;
+        pointer-events: auto;
+        opacity: 1;
+        }
+        #close-modal-btn {
+        background: #999;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        cursor: pointer;
+        margin-bottom: 16px;
+        transition: background 0.2s;
+        }
+        #close-modal-btn:hover {
+        background: #555;
+        }
+        .portal-marker {
+        z-index: 5000 !important;
+        background: none !important;
+        border: none !important;
+        }
+        .fixed-portal-effect {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #00f0ff 40%, #1C8CD1 70%, transparent 100%);
+        border: 5px solid #00f0ff;
+        box-shadow: 0 0 32px 12px #00f0ff99, 0 0 0 4px #fff3;
+        animation: portalPulse 1s infinite alternate;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        }
+        .fixed-portal-effect::after {
+        content: "Teleportar!";
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-shadow: 0 0 12px #1C8CD1, 0 0 4px #00f0ff;
+        pointer-events: none;
+        }
         #joystick-container {
             position: fixed;
             bottom: 20px;
@@ -260,6 +401,23 @@
         <div id="joystick">
             <div id="joystick-knob"></div>
         </div>
+    </div>
+    <button id="afterburner-btn">Teleportar</button>
+    <div id="afterburner-modal-bg">
+    <div id="afterburner-modal">
+        <button id="close-modal-btn">Fechar</button>
+        <h2>Selecionar destino SESC</h2>
+        <ul class="sesc-list">
+        <li class="sesc-item sesc-concluido">SESC Copacabana</li>
+        <li class="sesc-item sesc-concluido">SESC Tijuca</li>
+        <li class="sesc-item sesc-concluido">SESC Botafogo</li>
+        <li class="sesc-item sesc-objetivo" id="quitandinha">SESC Quitandinha (Objetivo)</li>
+        </ul>
+    </div>
+    </div>
+    <!-- O portal fica FORA do modal, sobre o mapa! -->
+    <div id="teleport-portal" style="display:none;">
+    <div id="portal-effect"></div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -496,6 +654,58 @@
             document.getElementById('welcome-popup').style.animation = 'popupOut 0.5s forwards';
             setTimeout(() => overlay.remove(), 500);
         });
+        document.getElementById('afterburner-btn').onclick = function() {
+        document.getElementById('afterburner-modal-bg').style.display = 'flex';
+        };
+        document.getElementById('close-modal-btn').onclick = function() {
+        document.getElementById('afterburner-modal-bg').style.display = 'none';
+        };
+        let portalMarker = null;
+
+        document.getElementById('quitandinha').onclick = function() {
+        document.getElementById('afterburner-modal-bg').style.display = 'none';
+
+        // Posição fixa do portal: posição do robô naquele momento
+        const portalLatLng = [robotLat, robotLng];
+
+        // Remove portal anterior se existir
+        if (portalMarker) {
+            map.removeLayer(portalMarker);
+            portalMarker = null;
+        }
+
+        // Cria marcador do portal
+        portalMarker = L.marker(portalLatLng, {
+            icon: L.divIcon({
+            className: 'portal-marker',
+            html: `<div class="fixed-portal-effect"></div>`,
+            iconSize: [120, 120],
+            iconAnchor: [60, 60]
+            })
+        }).addTo(map);
+
+        // Evento de clique no portal
+        portalMarker.on('click', function () {
+            // Teleporta o robô para o SESC Quitandinha
+            robotLat = -22.5278; // SESC Quitandinha
+            robotLng = -43.2125;
+            updateRobotPosition();
+
+            // Efeito no robô (teleport flash)
+            const robotEl = document.getElementById('robot');
+            robotEl.style.transition = "box-shadow 0.2s, filter 0.2s";
+            robotEl.style.filter = 'drop-shadow(0 0 24px #00f0ff) brightness(1.3)';
+            robotEl.style.boxShadow = '0 0 32px 12px #00f0ff99';
+            setTimeout(() => {
+            robotEl.style.filter = 'drop-shadow(0 0 8px rgba(250, 148, 11, 0.5))';
+            robotEl.style.boxShadow = '';
+            }, 400);
+
+            // Remove o portal após o teleporte (opcional)
+            map.removeLayer(portalMarker);
+            portalMarker = null;
+        });
+        };
     </script>
 </body>
 </html>
