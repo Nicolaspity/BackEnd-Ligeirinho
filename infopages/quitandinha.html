@@ -76,6 +76,21 @@ O Hotel Quitandinha, em Petrópolis, foi inaugurado em 1944 como um luxuoso cass
       document.getElementById('quiz-btn').addEventListener('click', function() {
         window.location.href = '../quiz-pages/quiz-quitandinha.html';
       });
+      document.addEventListener("DOMContentLoaded", function() {
+            // Só anima se não tiver visitado antes
+            if (!sessionStorage.getItem('cardsAnimated')) {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, i) => {
+                    setTimeout(() => {
+                        card.classList.add('card-animate');
+                    }, 150 + i * 120); // efeito cascata
+                });
+                sessionStorage.setItem('cardsAnimated', 'true');
+            } else {
+                // Se já visitou, mostra direto
+                document.querySelectorAll('.card').forEach(card => card.classList.add('card-animate'));
+            }
+        });
     </script>
 </body>
 </html>
