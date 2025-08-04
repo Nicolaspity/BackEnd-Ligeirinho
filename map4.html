@@ -83,7 +83,7 @@
         position: fixed;
         bottom: 32px;
         right: 32px;
-        background: #3232ff;
+        background: #FA940B;
         color: #fff;
         border: none;
         border-radius: 50px;
@@ -95,7 +95,7 @@
         transition: background 0.2s;
         }
         #afterburner-btn:hover {
-        background: #1a1aff;
+        background: #F7B733;
         }
         #afterburner-modal-bg {
         display: none;
@@ -107,13 +107,17 @@
         justify-content: center;
         }
         #afterburner-modal {
-        background: #222b3c;
-        border-radius: 18px;
-        box-shadow: 0 8px 32px rgba(28,140,209,0.25), 0 0 0 4px rgba(250,148,11,0.08);
+        background: #4b4b4b;
+        border: 4px solid transparent;
+        border-image: linear-gradient(90deg, #1C8CD1, #3F79A8, #FA940B) 1;
         padding: 36px 32px 28px 32px;
         min-width: clamp(260px, 60vw, 400px);
         text-align: center;
         font-family: 'Poppins', sans-serif;
+        }
+        #afterburner-modal h2 {
+        color: white;
+        font-size: 40px;
         }
         #teleport-portal {
         position: absolute;
@@ -177,18 +181,28 @@
         pointer-events: auto;
         opacity: 1;
         }
+        .sesc-objetivo:hover {
+        background: #ff7d66;
+        font-weight: bold;
+        box-shadow: 0 0 6px #ff7d66;
+        pointer-events: auto;
+        opacity: 1;
+        }
         #close-modal-btn {
-        background: #999;
+        background: #9b9b9b;
         color: #fff;
         border: none;
         border-radius: 8px;
         padding: 8px 16px;
         cursor: pointer;
         margin-bottom: 16px;
-        transition: background 0.2s;
+        transition: background 0.4s;
+        height: 50px;
+        width: 180px;
+        font-size: 20px;
         }
         #close-modal-btn:hover {
-        background: #555;
+        background: #3f3f3f;
         }
         .portal-marker {
         z-index: 5000 !important;
@@ -411,7 +425,7 @@
         <li class="sesc-item sesc-concluido">SESC Copacabana</li>
         <li class="sesc-item sesc-concluido">SESC Tijuca</li>
         <li class="sesc-item sesc-concluido">SESC Botafogo</li>
-        <li class="sesc-item sesc-objetivo" id="quitandinha">SESC Quitandinha (Objetivo)</li>
+        <li class="sesc-item sesc-objetivo" id="quitandinha">SESC Quitandinha</li>
         </ul>
     </div>
     </div>
