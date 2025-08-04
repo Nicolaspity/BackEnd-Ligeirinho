@@ -80,6 +80,7 @@
             100% { transform: translateY(0) scaleX(var(--robot-scale, 1)); }
         }
         #afterburner-btn {
+        display: none;
         position: fixed;
         bottom: 32px;
         right: 32px;
@@ -170,21 +171,21 @@
         user-select: none;
         }
         .sesc-concluido {
-        background: #4caf50;
+        background: #1C8CD1;
         opacity: 0.6;
         pointer-events: none;
         }
         .sesc-objetivo {
-        background: #ff5436;
+        background: #FA940B;
         font-weight: bold;
-        box-shadow: 0 0 6px #ff5436;
+        box-shadow: 0 0 6px #FA940B;
         pointer-events: auto;
         opacity: 1;
         }
         .sesc-objetivo:hover {
-        background: #ff7d66;
+        background: #e07f00;
         font-weight: bold;
-        box-shadow: 0 0 6px #ff7d66;
+        box-shadow: 0 0 6px #e07f00;
         pointer-events: auto;
         opacity: 1;
         }
@@ -667,6 +668,10 @@
             overlay.style.animation = 'fadeOutBg 0.5s forwards';
             document.getElementById('welcome-popup').style.animation = 'popupOut 0.5s forwards';
             setTimeout(() => overlay.remove(), 500);
+            setTimeout(() => {
+            overlay.remove();
+            document.getElementById('afterburner-btn').style.display = 'block';
+        }, 500);
         });
         document.getElementById('afterburner-btn').onclick = function() {
         document.getElementById('afterburner-modal-bg').style.display = 'flex';
