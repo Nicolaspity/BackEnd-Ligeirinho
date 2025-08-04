@@ -397,6 +397,61 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
         }
+        #tip-balloon {
+            position: fixed;
+            left: 50%;
+            bottom: 32px;
+            transform: translate(-50%, 60px); /* começa fora */
+            z-index: 4100;
+            background: #4b4b4b;
+            border: 3px solid;
+            border-image: linear-gradient(to right, #1C8CD1, #FA940B) 1;
+            padding: 36px 32px 24px 32px;
+            min-width: clamp(260px, 60vw, 320px);
+            max-width: 600px;
+            min-height: 60px;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15em;
+            display: none;
+            opacity: 0;
+            animation: balloonIn 0.8s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+        }
+
+        @keyframes balloonIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 60px) scale(0.9);
+            }
+            70% {
+                opacity: 1;
+                transform: translate(-50%, -4px) scale(1.02);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(1);
+            }
+        }
+        #tip-balloon .balloon-title {
+            color: #FA940B;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px #1C8CD144;
+        }
+        #tip-balloon .balloon-text {
+            color: #fff;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+        #tip-balloon .balloon-robot-img {
+            width: 44px;
+            height: 66px;
+            vertical-align: middle;
+            margin-right: 12px;
+            filter: drop-shadow(0 0 10px #FA940B88);
+        }
     </style>
 </head>
 <body>
@@ -430,11 +485,19 @@
         </ul>
     </div>
     </div>
-    <!-- O portal fica FORA do modal, sobre o mapa! -->
     <div id="teleport-portal" style="display:none;">
     <div id="portal-effect"></div>
     </div>
-
+    <!-- Balão de fala -->
+    <div id="tip-balloon">
+        <span>
+            <img src="src/ligeirinho.png" class="balloon-robot-img" alt="Ligeirinho"/>
+        </span>
+        <span class="balloon-title">Dica do Ligeirinho:</span>
+        <div class="balloon-text">
+            Use a <b>máquina de teleporte</b> para ir mais rápido até o SESC Quitandinha! Basta clicar no botão "Teleportar" e escolher o destino. Assim você não precisa fazer todo o caminho manualmente!
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Definir limites geográficos para o estado do Rio de Janeiro
@@ -669,9 +732,15 @@
             document.getElementById('welcome-popup').style.animation = 'popupOut 0.5s forwards';
             setTimeout(() => overlay.remove(), 500);
             setTimeout(() => {
-            overlay.remove();
-            document.getElementById('afterburner-btn').style.display = 'block';
-        }, 500);
+                overlay.remove();
+                document.getElementById('afterburner-btn').style.display = 'block';
+                // Exibe o balão de fala por 15 segundos
+                const tipBalloon = document.getElementById('tip-balloon');
+                tipBalloon.style.display = 'block';
+                setTimeout(() => {
+                    tipBalloon.style.display = 'none';
+                }, 15000);
+            }, 500);
         });
         document.getElementById('afterburner-btn').onclick = function() {
         document.getElementById('afterburner-modal-bg').style.display = 'flex';
