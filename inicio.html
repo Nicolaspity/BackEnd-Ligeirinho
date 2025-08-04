@@ -148,10 +148,17 @@
         
         /* Página 2 – mensagem */
         .msg-box {
-            background: url(src/cartabox.png) center/cover; width: 800px;
+            display: flex;
+            flex-direction: column; /* Empilha texto e botão */
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            background: url(src/cartabox.png) center/cover;
+            width: 800px;
             height: 400px;
-            font-size: 22px; font-style: italic; text-align: center;
-            display: flex; align-items: center; justify-content: center; gap: 30px;
+            font-size: 22px;
+            font-style: italic;
+            text-align: center;
         }
 
         /* botões */
