@@ -77,7 +77,6 @@ header {
 
 .right-top img, 
 .left-middle img {
-  position: static;
   margin: 0 auto;
   display: block;
 }
@@ -89,7 +88,6 @@ header {
 
 .right-top img, 
 .left-middle img {
-  position: absolute;
   top: 0;
   bottom: 0;
   margin: auto; /* Centraliza verticalmente */
@@ -173,6 +171,13 @@ header {
   transform: translateY(0);
 }
 
+.left-middle img {
+  margin-bottom: 30px;
+}
+.left-middle img:last-child {
+  margin-bottom: 0;
+}
+
 /* RESPONSIVIDADE */
 @media (max-width: 1200px) {
   .top-section, .middle-section {
@@ -227,4 +232,5 @@ header {
     font-size: 18px;
   }
 }
+
 
