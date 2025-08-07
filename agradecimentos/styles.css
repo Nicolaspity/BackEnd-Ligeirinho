@@ -18,7 +18,7 @@ body {
 header {
   display: flex;
   align-items: center;
-  padding: 20px 100px;
+  padding: 200px 1000px;
   position: relative;
   z-index: 10;
 }
@@ -233,5 +233,6 @@ header {
     font-size: 18px;
   }
 }
+
 
 
