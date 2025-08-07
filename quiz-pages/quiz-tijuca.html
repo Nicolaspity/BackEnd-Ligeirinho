@@ -278,10 +278,68 @@
     function exibirResultado() {
     quizTitle.textContent = "Quiz Finalizado!";
     quizOptions.innerHTML = `
-        <p style="font-size: 2rem; color: white; font-family: 'Poppins', Arial, sans-serif;">
-        Você acertou <strong>${pontuacao}</strong> de <strong>${quizData.length}</strong> perguntas.
-        </p>
-        <a style="background: #FA940B;
+        <div class="section">
+            <p>
+                Você acertou <strong>${pontuacao}</strong> de <strong>${quizData.length}</strong> perguntas.
+            </p>
+            <a href="../map2.html"> Voltar para o mapa </a>
+            <img class="overlay-gif" src="../src/congratulations.gif">
+        </div>
+
+        <style> 
+        .section {
+            margin: 0; /* corrigido: estava "marign" */
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative; /* necessário para que o img com position: absolute se baseie aqui */
+        }
+
+        .section p {
+            font-size: 2rem; 
+            color: white; 
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        .section a {
+            background: #FA940B;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 14px 24px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            min-width: 250px;
+            margin: 0;
+            display: block;
+            text-align: center;
+        }
+
+        .overlay-gif {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* ou ajuste conforme necessário */
+            height: auto;
+            z-index: 999; /* garante que esteja no topo */
+            pointer-events: none; /* impede que o GIF bloqueie cliques nos botões/links */
+        }
+        </style>
+
+    `;
+    nextBtn.style.display = "none";
+    }
+
+    carregarPergunta(perguntaAtual);
+
+    </script>
+</body>
+</html>
+<!-- "background: #FA940B;
             color: #fff;
             border: none;
             border-radius: 24px;
@@ -297,13 +355,7 @@
             min-width: 250px;
             margin: 0;
             display: block;
-            text-align: center;" href="../map2.html"> Voltar para o mapa </a>
-    `;
-    nextBtn.style.display = "none";
-    }
-
-    carregarPergunta(perguntaAtual);
-
-    </script>
-</body>
-</html>
+            text-align: center;"
+            
+            "font-size: 2rem; color: white; font-family: 'Poppins', Arial, sans-serif;"
+            -->
