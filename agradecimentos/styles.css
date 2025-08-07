@@ -7,6 +7,26 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.sesc-logo {
+    width: 200px; /* Ajuste conforme necessário */
+    height: auto;
+    margin-right: 15px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 100px;
+}
+
+.educacao {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
 .bg-gradient{
     position: absolute;
     width: 100%;
@@ -14,6 +34,7 @@ body {
     top: 0px;
     background: linear-gradient(199.89deg, #E8098A 13.28%, #5B2B8E 53.85%, #39338D 94.35%);
 }
+
 .top-section{
     margin-top: 0;
     margin-left: 100px;
@@ -112,4 +133,5 @@ body {
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+
 }
