@@ -27,7 +27,6 @@ header {
 .sesc-logo {
   width: 200px;
   height: auto;
-  margin-right: 15px;
 }
 
 /* FUNDO GRADIENTE */
@@ -227,6 +226,7 @@ header {
     font-size: 18px;
   }
 }
+
 
 
 
