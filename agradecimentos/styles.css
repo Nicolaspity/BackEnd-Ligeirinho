@@ -41,7 +41,7 @@ header {
 /* SEÇÃO SUPERIOR */
 .top-section {
   display: flex;
-  margin: 0 100px;
+  margin: 0;
   padding-top: 5px;
   margin-bottom: 10vh;
 }
@@ -52,34 +52,48 @@ header {
 }
 
 .left-top h1 {
-  font-weight: 700;
-  font-size: 64px;
-  line-height: 1.2;
-  background: linear-gradient(226.37deg, #F17721 26.6%, #EFE708 150.73%);
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 96px;
+  line-height: 144px;
+  margin-right: 20px;
+  margin-left: 120px;
+  margin-top: 80px;
+
+  background: linear-gradient(226.37deg, #F17721 25.6%, #EFE708 150.73%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
 }
+.voce-mereceu{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 144px;
+  margin-right: 20px;
+  margin-left: 120px;
 
-.voce-mereceu {
-  font-size: 32px;
-  font-weight: 600;
-  color: #EFE708;
+  background: linear-gradient(226.37deg, #F17721 25.6%, #EFE708 150.73%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
 .right-top {
   flex: 1;
   display: flex;
-  justify-content: flex-end; /* imagem vai para a direita */
+  justify-content: flex-end;
   align-items: flex-start;
+  max-width: 40vw; /* Limita a largura máxima */
+  padding-bottom: 220px; /* Espaçamento inferior para evitar sobreposição */
 }
 
 .right-top img {
-  max-width: 90%; /* Controla a largura */
-  height: auto; /* Mantém proporção */
-  transform: scale(0.85); /* Redução proporcional extra (opcional) */
-  margin-right: -5%; /* Ajusta posição para direita */
+  padding-right: 40px;
+  padding-top: -50px; /* Ajuste fino para centralizar verticalmente */
+  width: 90%;
+  height: auto;
 }
 
 .right-top, .left-middle {
@@ -87,8 +101,7 @@ header {
   position: relative;
 }
 
-.right-top img, 
-.left-middle img {
+.right-top img{
   top: 0;
   bottom: 0;
   margin: auto; /* Centraliza verticalmente */
@@ -97,6 +110,9 @@ header {
 /* SEÇÃO MEIO */
 .middle-section {
   display: flex;
+  flex-direction: row-reverse; /* Inverte a ordem para manter a imagem à esquerda */
+  justify-content: space-between;
+  align-items: center;
   margin: 0 100px;
   margin-bottom: 10vh;
 }
@@ -106,24 +122,28 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center; /* centraliza as imagens verticalmente */
+  margin-right: 50px; /* Espaçamento entre as seções */
 }
 
 #logo {
   max-width: 100%;
   margin-bottom: 50px;
+  height: 40vh;
 }
 
 #ligeirinho {
-  max-width: 80%;
+  max-width: 100%;
+  height: 40vh;
 }
 
 .right-middle {
   flex: 1.5;
+  margin-left: 50px; /* Espaçamento entre as seções */
 }
 
 .right-middle h2 {
   font-weight: 800;
-  font-size: 64px; /* Reduzido para melhor responsividade */
+  font-size: 72px; /* Reduzido para melhor responsividade */
   line-height: 1.2;
   background: linear-gradient(210.3deg, #F17721 18.44%, #EFE708 95.64%);
   -webkit-background-clip: text;
@@ -134,7 +154,7 @@ header {
 
 .right-middle p {
   font-weight: 600; /* Reduzido para melhor legibilidade */
-  font-size: 24px; /* Reduzido para melhor responsividade */
+  font-size: 30px; /* Reduzido para melhor responsividade */
   line-height: 1.6;
   background: linear-gradient(206.19deg, #F17721 12.62%, #EFE708 94.29%);
   -webkit-background-clip: text;
