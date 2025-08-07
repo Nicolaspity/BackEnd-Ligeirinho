@@ -70,16 +70,16 @@ header {
 
 .right-top {
   flex: 1;
-  height: 1vh;
   display: flex;
   justify-content: flex-end; /* imagem vai para a direita */
   align-items: flex-start;
 }
 
-.right-top img, 
-.left-middle img {
-  margin: 0 auto;
-  display: block;
+.right-top img {
+  max-width: 70%; /* Controla a largura */
+  height: auto; /* Mantém proporção */
+  transform: scale(0.85); /* Redução proporcional extra (opcional) */
+  margin-right: -5%; /* Ajusta posição para direita */
 }
 
 .right-top, .left-middle {
@@ -233,7 +233,3 @@ header {
     font-size: 18px;
   }
 }
-
-
-
-
