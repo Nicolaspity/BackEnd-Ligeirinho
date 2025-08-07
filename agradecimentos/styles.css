@@ -83,8 +83,22 @@ header {
 }
 
 .right-top img {
-  max-width: 85%;
-  height: auto;
+  max-height: 60vh; /* Controla altura máxima */
+  object-fit: contain; /* Garante proporção */
+  width: auto; /* Mantém proporção original */
+}
+
+.right-top, .left-middle {
+  min-height: 300px; /* Altura mínima preventiva */
+  position: relative;
+}
+
+.right-top img, 
+.left-middle img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto; /* Centraliza verticalmente */
 }
 
 /* SEÇÃO MEIO */
@@ -219,4 +233,5 @@ header {
     font-size: 18px;
   }
 }
+
 
