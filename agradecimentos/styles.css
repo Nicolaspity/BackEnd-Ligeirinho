@@ -42,7 +42,7 @@ header {
 .top-section {
   display: flex;
   margin: 0 100px;
-  padding-top: 50px;
+  padding-top: 5px;
   margin-bottom: 10vh;
 }
 
@@ -226,6 +226,7 @@ header {
     font-size: 18px;
   }
 }
+
 
 
 
