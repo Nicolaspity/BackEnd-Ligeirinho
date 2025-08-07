@@ -213,11 +213,51 @@
             opacity: 0; transition: opacity 0.8s ease 0.5s;
         }
         .show .caption-box { opacity: 1; }
+
+        /* Caixa de diálogo no topo */
+        .dialog-top-box {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            height: 100px;
+            width: 1000px;
+            transform: translateX(-50%);
+            background: #fffbe0;
+            color: #6f4c00;
+            border: 2.5px solid #FFD166;
+            border-radius: 20px;
+            padding: 16px 42px;
+            font-size: 2.0rem;
+            font-family: 'Poppins', sans-serif;
+            font-style: italic;
+            box-shadow: 0 4px 16px 0 rgba(230,188,56,0.16);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .dialog-top-box.hide {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .dialog-top-box {
+                font-size: 1rem;
+                padding: 10px 12px;
+                border-radius: 14px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="page1" class="page">
+    <div id="dialogTopBox" class="dialog-top-box">
+        Veja, você recebeu&nbsp;<span style="font-weight:bold;">uma carta!</span>
+        <img src="src/icone-ligeirinho.png" alt="Ícone Ligeirinho" style="height: 32px; margin-left: 8px;">
+    </div>
     <div class="envelope" id="envelope">
         <div class="flap"></div>
         <p style="text-align:center; margin-top: 150px; font-family: 'Poppins'; font-size: 30px; font-weight: bold; color: #303350">Toque para abrir</p>
@@ -312,6 +352,7 @@
     const msgBox      = page2.querySelector('.msg-box');
     const captionBox3 = page3.querySelector('.caption-box');
     const captionBox4 = page4.querySelector('.caption-box');
+    const dialogTopBox = document.getElementById('dialogTopBox');
 
     // Função de transição otimizada
     function transitionPage(fromPage, elementsToFade, toPage, callback) {
@@ -330,6 +371,10 @@
 
     envelope.addEventListener('click', () => {
         envelope.classList.add('opened');
+        // Esconde a caixa de diálogo ao abrir o envelope
+        if (dialogTopBox) {
+            dialogTopBox.classList.add('hide');
+        }
         setTimeout(() => {
             page1.classList.add('hidden');
             page2.classList.remove('hidden');
@@ -366,4 +411,3 @@
 </script>
 </body>
 </html>
-
