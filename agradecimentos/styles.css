@@ -48,7 +48,7 @@ header {
 
 .left-top {
   flex: 1;
-  margin-top: 90px;
+  margin-top: 0px;
 }
 
 .left-top h1 {
@@ -226,6 +226,7 @@ header {
     font-size: 18px;
   }
 }
+
 
 
 
