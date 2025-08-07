@@ -76,7 +76,7 @@ header {
 }
 
 .right-top img {
-  max-width: 80%; /* Controla a largura */
+  max-width: 90%; /* Controla a largura */
   height: auto; /* Mantém proporção */
   transform: scale(0.85); /* Redução proporcional extra (opcional) */
   margin-right: -5%; /* Ajusta posição para direita */
@@ -233,4 +233,5 @@ header {
     font-size: 18px;
   }
 }
+
 
