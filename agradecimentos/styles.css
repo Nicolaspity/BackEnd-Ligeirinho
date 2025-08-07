@@ -75,10 +75,11 @@ header {
   align-items: flex-start;
 }
 
-.right-top img {
-  max-height: 60vh; /* Controla altura máxima */
-  object-fit: contain; /* Garante proporção */
-  width: auto; /* Mantém proporção original */
+.right-top img, 
+.left-middle img {
+  position: static;
+  margin: 0 auto;
+  display: block;
 }
 
 .right-top, .left-middle {
@@ -226,13 +227,3 @@ header {
     font-size: 18px;
   }
 }
-
-
-
-
-
-
-
-
-
-
