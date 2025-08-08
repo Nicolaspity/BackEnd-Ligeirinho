@@ -258,7 +258,7 @@
         <img src="src/ligeirinho.png" alt="Robô" id="welcome-robot-img" />
         <h1>Olá, seja bem vindo. 
             Estamos felizes que você esteja aqui!
-            Utilize o JoyStick para controlar o robô e explorar os SESCs do Rio de Janeiro e obter conhecimento!
+            Utilize o JoyStick para controlar o robô e explorar os Sesc's do Rio de Janeiro e obter conhecimento!
             <br> Está pronto para começar?
         </h1>
         <button id="welcome-start-btn">Começar</button>
@@ -293,31 +293,31 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         }).addTo(map);
 
-        // Adiciona marcadores para os locais do SESC com popups e imagens
+        // Adiciona marcadores para os locais do Sesc com popups e imagens
         const sescLocations = [
             /*{ 
-                name: 'SESC Botafogo', 
+                name: 'Sesc Botafogo', 
                 lat: -22.9406, 
                 lng: -43.1816, 
                 description: 'Espaço cultural com teatro, exposições e atividades educativas.',
                 image: 'src/sesc-botafogo.jpeg'
             },
             { 
-                name: 'SESC Quitandinha', 
+                name: 'Sesc Quitandinha', 
                 lat: -22.5278, 
                 lng: -43.2125, 
                 description: 'Palácio histórico em Petrópolis com eventos culturais.',
                 image: 'src/sesc-quitandinha.jpg'
             },
             { 
-                name: 'SESC Copacabana', 
+                name: 'Sesc Copacabana', 
                 lat: -22.9690, 
                 lng: -43.1870, 
                 description: 'Unidade com piscina, shows e oficinas culturais.',
                 image: 'src/sesc-copacabana.jpg'
             }, */
             { 
-                name: 'SESC Tijuca', 
+                name: 'Sesc Tijuca', 
                 lat: -22.9219, 
                 lng: -43.2350, 
                 description: 'Centro de lazer com esportes, shows e cursos.',
@@ -345,7 +345,7 @@
             window.location.href = 'infopages/tijuca.html';
         });
 
-        // Linhas guias para os SESCs
+        // Linhas guias para os Sesc's
         const guideLines = sescLocations.map(() => L.polyline([], {
             color: '#1C8CD1',
             weight: 2,
