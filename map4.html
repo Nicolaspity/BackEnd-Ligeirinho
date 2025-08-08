@@ -528,7 +528,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         }).addTo(map);
 
-        // Adiciona marcadores para os locais do SESC com popups e imagens
+        // Adiciona marcadores para os locais do Sesc com popups e imagens
         const sescLocations = [
             { 
                 name: 'Sesc Botafogo', 
@@ -580,7 +580,7 @@
             window.location.href = 'infopages/quitandinha.html';
         });
 
-        // Linhas guias para os SESCs
+        // Linhas guias para os Sesc's
         const guideLines = sescLocations.map(() => L.polyline([], {
             color: '#1C8CD1',
             weight: 2,
@@ -783,8 +783,8 @@
 
         // Evento de clique no portal
         portalMarker.on('click', function () {
-            // Teleporta o robô para o SESC Quitandinha
-            robotLat = -22.5278; // SESC Quitandinha
+            // Teleporta o robô para o Sesc Quitandinha
+            robotLat = -22.5278; // Sesc Quitandinha
             robotLng = -43.2125;
             updateRobotPosition();
 
