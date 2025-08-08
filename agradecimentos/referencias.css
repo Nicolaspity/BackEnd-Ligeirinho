@@ -67,6 +67,51 @@ h1 {
     color: #606978;
 }
 
+.referencias-button {
+    background: #FA940B;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
+    transition: 
+        background 0.3s ease,
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+}
+
+.quiz-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3vh; /* Altura mínima para centralização vertical */
+    width: 100%;
+}
+/* Estado hover */
+.quiz-btn:hover {
+    background: #F7B733;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
+}
+
+/* Estado focado - ACESSIBILIDADE */
+.quiz-btn:focus-visible {
+    box-shadow: 
+        0 0 0 4px #fff,     
+        0 0 0 6px #39477A;
+}
+
+.quiz-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 6px rgba(250, 148, 11, 0.3);
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
     .referencias-list {
