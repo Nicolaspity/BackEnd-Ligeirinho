@@ -242,13 +242,102 @@
         .dialog-top-box.hide {
             display: none;
         }
-        @media (max-width: 600px) {
-            .dialog-top-box {
-                font-size: 1rem;
-                padding: 10px 12px;
-                border-radius: 14px;
-            }
+        /* Tornar páginas e textos responsivos */
+        .msg-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            background: url(src/cartabox.png) center/cover;
+            width: 90%;
+            max-width: 800px;
+            min-height: 50%;
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
         }
+
+        /* Ajuste para legendas */
+        .caption-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(255,147,86,0.95);
+            padding: 20px;
+            border-radius: 14px;
+            font-size: 1.4rem;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        /* Caixa do Ligeirinho adaptável */
+        .ligeirinho-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .ligeirinho-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Ajuste para celulares */
+        @media (max-width: 768px) {
+            .msg-box {
+            font-size: 1.2rem;
+            gap: 20px;
+            padding: 15px;
+            height: auto;
+        }
+
+        .caption-box {
+            font-size: 1.2rem;
+            padding: 15px;
+        }
+
+        .dialog-top-box {
+            font-size: 1.2rem;
+            width: 90%;
+            height: auto;
+            padding: 10px;
+        }
+
+        .ligeirinho-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ligeirinho-container img {
+            height: auto;
+            max-height: 300px;
+        }
+
+        .btn-next {
+            min-width: 200px;
+            font-size: 1rem;
+            padding: 8px 16px;
+        }
+
+    }
+        /* Ajuste para telas muito pequenas (celulares antigos) */
+        @media (max-width: 480px) {
+            .msg-box {
+            font-size: 1rem;
+        }
+
+        .caption-box {
+            font-size: 1rem;
+        }
+
+        .dialog-top-box {
+            font-size: 1rem;
+        }
+    }
     </style>
 </head>
 <body>
@@ -411,3 +500,4 @@
 </script>
 </body>
 </html>
+
