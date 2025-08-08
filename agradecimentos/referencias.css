@@ -67,7 +67,17 @@ h1 {
     color: #606978;
 }
 
-.referencias-button {
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3vh; /* Altura mínima para centralização vertical */
+    width: 100%;
+}
+
+/* Estilo base para os botões de navegação */
+.agradecimentos-button,
+.index-button {
     background: #FA940B;
     align-items: center;
     display: flex;
@@ -86,32 +96,29 @@ h1 {
         box-shadow 0.3s ease;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 3vh; /* Altura mínima para centralização vertical */
-    width: 100%;
-}
 /* Estado hover */
-.quiz-btn:hover {
+.agradecimentos-button:hover,
+.index-button:hover {
     background: #F7B733;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
 }
 
-/* Estado focado - ACESSIBILIDADE */
-.quiz-btn:focus-visible {
+/* Estado focado para acessibilidade */
+.agradecimentos-button:focus-visible,
+.index-button:focus-visible {
+    outline: none;
     box-shadow: 
         0 0 0 4px #fff,     
         0 0 0 6px #39477A;
 }
 
-.quiz-btn:active {
+/* Estado ativo (clique) */
+.agradecimentos-button:active,
+.index-button:active {
     transform: translateY(1px);
     box-shadow: 0 1px 6px rgba(250, 148, 11, 0.3);
 }
-
 /* Responsividade */
 @media (max-width: 600px) {
     .referencias-list {
