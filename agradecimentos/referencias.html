@@ -74,8 +74,16 @@
                 lista.appendChild(li);
             });
         }
-
         document.addEventListener('DOMContentLoaded', carregarReferencias);
+
+        document.getElementById('index-button').addEventListener('click', function() {
+            window.location.href = '../index.html';
+        });
+
+        document.getElementById('agradecimentos-button').addEventListener('click', function() {
+            window.location.href = '../agradecimentos/agradecimentos.html';
+        });
+
     </script>
 </body>
 </html>
