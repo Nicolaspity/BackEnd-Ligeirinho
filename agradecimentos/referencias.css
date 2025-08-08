@@ -79,6 +79,9 @@ h1 {
 /* Aplica o estilo idêntico dos botões .quiz-btn do Sesc Tijuca */
 .agradecimentos-button,
 .index-button {
+    flex: 1;              /* ocupam o mesmo espaço */
+    max-width: 220px;     /* limite máximo da largura */
+    min-width: 150px;     /* largura mínima para evitar ficar muito pequeno */
     background: #FA940B;
     display: flex;
     align-items: center;
@@ -140,5 +143,17 @@ h1 {
 
     .ref-descricao {
         font-size: 0.9rem;
+    }
+    .button-container {
+        flex-direction: column; /* empilha verticalmente */
+        gap: 12px;
+        align-items: center;
+    }
+
+    .agradecimentos-button,
+    .index-button {
+        max-width: 90vw;    /* ocupam quase toda a largura da tela */
+        min-width: auto;    /* remove largura mínima fixa */
+        width: 100%;        /* ocupa toda largura disponível */
     }
 }
