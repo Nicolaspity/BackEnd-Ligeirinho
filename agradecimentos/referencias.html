@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Referências - Sesc Tijuca</title>
+    <link rel="stylesheet" href="referencias.css" />
+</head>
+<body>
+    <main>
+        <section aria-labelledby="referencias-title" class="referencias-section">
+            <h1 id="referencias-title">Referências</h1>
+            <p class="intro">
+                Abaixo estão listadas as fontes consultadas, com links diretos para os conteúdos. Esta lista é dinâmica e pode ser atualizada facilmente.
+            </p>
+            <ul id="referencias-list" class="referencias-list" role="list">
+                <!-- Referências serão inseridas dinamicamente aqui -->
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // Array com as referências: título, texto explicativo e link
+        const referencias = [
+            {
+                titulo: "Floresta da Tijuca - Info Oficial",
+                descricao: "Informações oficiais sobre a Floresta da Tijuca no site do ICMBio.",
+                url: "https://www.icmbio.gov.br/parnatijuca/"
+            },
+            {
+                titulo: "Sesc Tijuca - Programação Cultural",
+                descricao: "Programação e eventos do Sesc Tijuca disponíveis no site oficial do Sesc RJ.",
+                url: "https://sesc-rj.com.br/unidades/sesc-tijuca/"
+            },
+            {
+                titulo: "História da Tijuca",
+                descricao: "Contexto histórico e social da Tijuca, detalhado no portal da Prefeitura do Rio.",
+                url: "https://prefeitura.rio/historia-da-tijuca"
+            }
+            // Adicione mais referências aqui conforme necessário
+        ];
+
+        // Função para criar e inserir os itens da lista dinamicamente
+        function carregarReferencias() {
+            const lista = document.getElementById('referencias-list');
+
+            referencias.forEach(ref => {
+                const li = document.createElement('li');
+
+                // Criar link com título
+                const a = document.createElement('a');
+                a.href = ref.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.textContent = ref.titulo;
+                a.className = "ref-link";
+
+                // Descrição da referência
+                const p = document.createElement('p');
+                p.textContent = ref.descricao;
+                p.className = "ref-descricao";
+
+                li.appendChild(a);
+                li.appendChild(p);
+
+                lista.appendChild(li);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarReferencias);
+    </script>
+</body>
+</html>
