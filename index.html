@@ -51,13 +51,13 @@
       align-items: center;
       z-index: 1;
     }
-    .logo {
-      width: 200px;
-      height: 200px;
+    /*.logo {
+      width: 10px;
+      height: auto;
       border-radius: 15px;
       margin-bottom: 20px;
       animation: fadeIn 2s ease-in-out;
-    }
+    }*/
     .sesceducacao {
       width: 300px;
       height: 100px;
@@ -108,6 +108,8 @@
       width: auto;
       height: auto;
       flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
     }
     .team-photos img {
       width: 70%;
@@ -171,27 +173,31 @@
   <div class="noise"></div>
   <div class="container">
     <div class="header">
-      <img class="logo" src="src/logo.jpeg" alt="Logo Equipe F5">
-      <h1>Equipe F5</h1>
+      <img class="poster" src="src/logo.jpeg" alt="Logo Equipe F5">
+      <h1>Guardião da Memória: O bibliotecário Robótico</h1>
       <!-- <img class="sesceducacao" src="src/logosescmaiseducacao.svg" alt="Logo SESC Educação"> -->
     </div>
     <div class="section">
-      <h2>História</h2>
-      <p>A Equipe F5 é composta por alunos do ensino técnico integrado com médio, formada em 2025 com o objetivo de participar de hack-a-thons e projetos de inovação, destacando-se em feiras como a Rio Innovation Week.</p>
+      <h2>Venha se mergulhar nessa história interativa!</h2>
+      <p>Explore o Rio de Janeiro jogando com Ligeirinho, um robô bibliotecário que guia você pelas unidades do Sesc! Cada fase revela curiosidades incríveis da cultura carioca — tudo com ação, história e diversão. Pronto pra descobrir o Rio de um jeito único?</p>
     </div>
     <div class="section">
       <h2>Objetivos</h2>
-      <p>Nosso objetivo é desenvolver tecnologias que transformem o futuro, promovendo educação e sustentabilidade. Queremos inspirar a próxima geração de inovadores através de projetos únicos e impactantes.</p>
+      <p>Guie o robô Ligeirinho à partir do Sesc Tijuca, descubra fatos marcantes da cultura carioca e enfrente desafios para salvar o Rio do Caos — o vilão que ameaça apagar a memória da cidade. Aprenda, jogue e proteja a história!</p>
     </div>
     <div class="section">
-      <h2>Desenvolvedores</h2>
+      <h2>Desenvolvedores: Equipe F5</h2>
       <div class="team-photos">
+        <img class="logo" src="src/logo.jpeg" alt="Logo Equipe F5" style="width: 100px;
+      height: 100px;
+      animation: fadeIn 2s ease-in-out;">
         <img src="src/foto_equipe.jpeg" alt="Equipe F5">
+        
       </div>
     </div>
     <div class="section project">
       <h2>Projeto Rio Innovation Week</h2>
-      <p>Estamos desenvolvendo um robô bibliotecário inovador para a Rio Innovation Week 2025. Este robô contará a rica história do Rio de Janeiro de forma interativa.</p>
+      <p></p>
       <button id="start-btn">Vamos começar!</button>
     </div>
   </div>
