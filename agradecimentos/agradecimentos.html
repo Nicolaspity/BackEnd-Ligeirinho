@@ -81,10 +81,18 @@
 
     fadeEls.forEach(el => observer.observe(el));
   });
+
+  document.getElementById('index-button').addEventListener('click', function() {
+    window.location.href = '../index.html';
+  });
+
+  document.getElementById('agradecimentos-button').addEventListener('click', function() {
+    window.location.href = '../agradecimentos/agradecimentos.html';
   </script>
 </body>
 
 </html>
+
 
 
 
