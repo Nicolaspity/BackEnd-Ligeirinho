@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesc Tijuca</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../src/icone-ligeirinho.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../src/icone-ligeirinho.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../src/icone-ligeirinho.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="../src/icone-ligeirinho.png">
+    <link rel="stylesheet" href="tijuca.css">
+</head>
+<body>
+    <div class="overlay">
+        <header class="hero">
+            <div class="header-grid">
+                <div class="text-container">
+                    <h1>Sesc Tijuca</h1>
+                    <p class="subtitle">
+                        O Sesc Tijuca - Zona Norte do Rio - promove cultura, educação, esporte e inclusão social, reforçando laços comunitários e a identidade dos trabalhadores locais através de eventos e atividades artísticas e físicas.
+                    </p>
+                </div>
+                <aside class="ligeirinho-container">
+                    <img src="../src/ligeirinho_tijuca.png" alt="Ligeirinho" class="ligeirinho-topo" />
+                </aside>
+            </div>
+        </header>
+
+        <main>
+            <section class="cards">
+
+                <!-- Card 1 -->
+                <div class="card">
+                    <h2>Floresta da Tijuca</h2>
+                    <div class="img-container">
+                        <img src="link" alt="Cristo Redentor">
+                    </div>
+                    <p class="card-text">
+                        Considerada a maior floresta urbana replantada pelo mundo, a Floresta da Tijuca oferece trilhas, cachoeiras, mirantes e espécies raras, sendo símbolo de sustentabilidade e lazer no Parque Nacional da Tijuca.
+                    </p>
+                    <p class="card-text">
+                        No século XIX, Dom Pedro II ordenou o reflorestamento da área devastada pelas plantações de café; hoje, a Floresta da Tijuca é referência em preservação ambiental, com rica biodiversidade e nascentes vitais para a cidade.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <h2>Sesc Tijuca</h2>
+                    <div class="img-container">
+                        <img src="link" alt="Pão de Açúcar">
+                    </div>
+                    <p class="card-text">
+                        O Sesc Tijuca desenvolve regularmente oficinas, cursos de capacitação, rodas de leitura, grupos terapêuticos e atividades de cidadania voltados a jovens, idosos, pessoas vulneráveis e com deficiência.
+                    </p>
+                    <p class="card-text">
+                        Desde sua inauguração em 1977, o Sesc Tijuca oferece programação cultural, esportiva e educativa — como teatro, biblioteca e cursos — servindo como polo de cultura, inclusão e lazer na Zona Norte.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <h2>Trabalhadores da Tijuca</h2>
+                    <div class="img-container">
+                        <img src="link" alt="Hotel Sesc Copacabana">
+                    </div>
+                    <p class="card-text">
+                        Entre o século XIX e início do XX, migrantes e imigrantes que trabalhavam em plantações, obras e fábricas moldaram o caráter residencial, cultural e comunitário que impulsionou o crescimento da Tijuca.
+                    </p>
+                    <p class="card-text">
+                        Desde sua inauguração em 1977, o Sesc Tijuca oferece programação cultural, esportiva e educativa — como teatro, biblioteca e cursos — servindo como polo de cultura, inclusão e lazer na Zona Norte.
+                    </p>
+                </div>
+
+            </section>
+
+            <div class="quiz-btn-container">
+                <button id="quiz-btn" class="quiz-btn">Participe do quiz!</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+      document.getElementById('quiz-btn').addEventListener('click', function() {
+        window.location.href = '../quiz-pages/quiz-tijuca.html';
+      });
+
+      document.addEventListener("DOMContentLoaded", function() {
+            // Só anima se não tiver visitado antes
+            if (!sessionStorage.getItem('cardsAnimated')) {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, i) => {
+                    setTimeout(() => {
+                        card.classList.add('card-animate');
+                    }, 150 + i * 120); // efeito cascata
+                });
+                sessionStorage.setItem('cardsAnimated', 'true');
+            } else {
+                // Se já visitou, mostra direto
+                document.querySelectorAll('.card').forEach(card => card.classList.add('card-animate'));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Parabéns por ter chegado ao fim da jornada!</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="../src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="../src/icone-ligeirinho.png">
+  <link rel="stylesheet" href="agradecimentos.css">
+</head>
+<body>
+  <div class="bg-gradient">
+    <header>
+      <img src="../src/logo-sesc-educacao.png" alt="Sesc Educação Logo" class="sesc-logo">
+    </header>
+    <main>
+      <section class="top-section fade-up">
+        <div class="left-top">
+          <h1>Parabéns por ter<br>chegado ao fim<br>da jornada!</h1>
+          <div class="voce-mereceu">Você mereceu!</div>
+        </div>
+        <div class="right-top">
+          <img src="assets/redentor.svg">
+        </div>
+      </section>
+      <section class="middle-section fade-up">
+        <div class="right-middle">
+          <h2>A Equipe F5...</h2>
+          <!--<p class="desc">
+            agradece a oportunidade e o convite ao Sesc e a nossa honrável professora de robótica, Priscila Bento. Poder estar trabalhando em algo que ajude a ampliar e divulgar o conhecimento e participar disso através da tecnologia atual, é extremamente gratificante e enriquecedor em nossa caminhada acadêmica.<br>
+            Nossa mensagem final é mais uma vez mostrar nossa gratidão, a você, herói contra o Caos no Rio de Janeiro, que concluiu essa nossa jornada. Nunca se esqueça do quão capaz e importante para o mundo o és. Tem coisas que só você é capaz de contribuir. A jornada não acaba aqui, ela continua.
+          </p>-->
+          <p class="desc">
+            <bold>agradece ao Sesc pela oportunidade e à nossa estimada professora de Robótica, Priscila Bento, pelo convite e orientação.</bold>
+
+            Participar de um projeto que promove o conhecimento por meio da tecnologia é uma experiência enriquecedora e motivadora em nossa trajetória acadêmica.
+
+            Nosso agradecimento final é a você, herói que enfrentou o Caos no Rio de Janeiro e concluiu essa missão.
+            Nunca esqueça: o mundo precisa do que só você pode oferecer.
+            
+            
+          </p>
+          <p class="desc">
+            <i>"Conhece a ti mesmo e torna-te quem tu és"</i>
+            <i>- Sócrates</i>
+          </p>
+          <p class="desc">
+            <bold>A jornada continua.</bold>
+          </p>
+        </div>
+        <div class="left-middle">
+          <img id="logo" src="assets/f5.svg">
+          <img id="ligeirinho" src="assets/ligeirinho.svg">
+          
+        </div>
+      </section>
+      <section class="bottom-section fade-up">
+        <div class="foto-equipe">
+          <div class="foto-placeholder"><img src="assets/placeholder-foto.svg"></div>
+        </div>
+      </section>
+    </main>
+    <div class="button-container">
+      <button class="referencias-button" id="referencias-button">Página de Referências</button>
+      <button class="index-button" id="index-button">Página de Introdução</button>
+    </div>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    fadeEls.forEach(el => observer.observe(el));
+  });
+
+  document.getElementById('index-button').addEventListener('click', function() {
+    window.location.href = '../index.html';
+  });
+
+  document.getElementById('referencias-button').addEventListener('click', function() {
+    window.location.href = '../agradecimentos/referencias.html';
+  });
+    
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

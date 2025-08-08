@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipe F5 - Landing Page</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="src/icone-ligeirinho.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="src/icone-ligeirinho.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #1C8CD1 0%, #303350 70%, #2D3033 100%);
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      height: 100vh;
+    }
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/noise.png');
+      opacity: 0.1;
+      pointer-events: none;
+      z-index: -1;
+      mix-blend-mode: overlay;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .header {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+    /*.logo {
+      width: 10px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }*/
+    .sesceducacao {
+      width: 300px;
+      height: 100px;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out 0.5s backwards;
+    }
+    .header h1 {
+      font-size: 4em;
+      color: #FA940B;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin: 0;
+      animation: fadeIn 2s ease-in-out 0.5s backwards;
+    }
+    .section {
+      margin: 100px 0;
+      padding: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(63, 121, 168, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(28, 140, 209, 0.5), inset 0 0 20px rgba(250, 148, 11, 0.3);
+      border: 2px solid rgba(57, 71, 122, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section h2 {
+      color: #FA940B;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+    .section p {
+      font-size: 1.4em;
+      line-height: 1.8;
+    }
+    .team-photos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: auto;
+      height: auto;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+    }
+    .team-photos img {
+      width: 70%;
+      height: 70%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+    .project {
+      background: rgba(57, 71, 122, 0.8);
+      padding: 40px;
+      border-radius: 15px;
+    }
+    .project button {
+    background: #FA940B;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
+    transition: 
+        background 0.3s ease,
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+    min-width: 250px;
+    margin: 0 auto;
+    display: block;
+  }
+    .project button:hover {
+    background: #F7B733;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top < window.innerHeight) {
+          section.classList.add('in-view');
+        }
+      });
+    });
+    document.getElementById('start-btn').onclick = function() {
+    window.location.href = 'inicio.html';
+  };
+  </script>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="container">
+    <div class="header">
+      <img class="poster" src="src/logo.jpeg" alt="Logo Equipe F5">
+      <h1>Guardião da Memória: O bibliotecário Robótico</h1>
+      <!-- <img class="sesceducacao" src="src/logosescmaiseducacao.svg" alt="Logo Sesc Educação"> -->
+    </div>
+    <div class="section">
+      <h2>Venha se mergulhar nessa história interativa!</h2>
+      <p>Explore o Rio de Janeiro jogando com Ligeirinho, um robô bibliotecário que guia você pelas unidades do Sesc! Cada fase revela curiosidades incríveis da cultura carioca — tudo com ação, história e diversão. Pronto pra descobrir o Rio de um jeito único?</p>
+    </div>
+    <div class="section">
+      <h2>Objetivos</h2>
+      <p>Guie o robô Ligeirinho à partir do Sesc Tijuca, descubra fatos marcantes da cultura carioca e enfrente desafios para salvar o Rio do Caos — o vilão que ameaça apagar a memória da cidade. Aprenda, jogue e proteja a história!</p>
+    </div>
+    <div class="section">
+      <h2>Desenvolvedores: Equipe F5</h2>
+      <div class="team-photos">
+        <img class="logo" src="src/logo.jpeg" alt="Logo Equipe F5" style="width: 100px;
+      height: 100px;
+      animation: fadeIn 2s ease-in-out;">
+        <img src="src/foto_equipe.jpeg" alt="Equipe F5">
+        
+      </div>
+    </div>
+    <div class="section project">
+      <h2>Projeto Rio Innovation Week</h2>
+      <p></p>
+      <button id="start-btn">Vamos começar!</button>
+    </div>
+  </div>
+  <script>
+  document.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top >= 0 && rect.top < window.innerHeight) {
+        section.classList.add('in-view');
+      }
+    });
+  });
+  document.getElementById('start-btn').onclick = function() {
+    window.location.href = 'inicio.html';
+  };
+</script>
+</body>
+</html>
