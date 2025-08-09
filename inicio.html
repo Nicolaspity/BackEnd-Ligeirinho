@@ -205,7 +205,7 @@
             position: absolute;
             top: calc(env(safe-area-inset-top, 24px) + 20px);
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50px); /* X e Y juntos */
             width: min(100%, 1000px);
             max-width: calc(100% - 32px);
             background: #4b4b4b;
@@ -224,7 +224,16 @@
             gap: 8px;
             font-weight: 600;
             letter-spacing: 0.02em;
+            /* Animação */
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
+
+        .dialog-top-box.show {
+            opacity: 1;
+            transform: translate(-50%, 0); /* Mantém centralização no X */
+        }
+
         .dialog-top-box.hide { display: none; }
 
         /* Ligeirinho - container adaptável */
@@ -397,7 +406,7 @@
         target.classList.add('enter-page', 'show');
         target.setAttribute('aria-hidden', 'false');
     }
-
+    
     if (envelope) {
         envelope.addEventListener('click', () => {
             if (dialogTopBox) dialogTopBox.classList.add('hide');
@@ -436,9 +445,14 @@
             window.location.href = 'map1.html';
         });
     }
-
+    // animação inicial do título
+    // Animação inicial do título (checando se existe)
+    setTimeout(() => {
+        if (dialogTopBox) dialogTopBox.classList.add("show");
+    }, 300);
     // mostra inicialmente a page1
     showPage(page1);
+    
 </script>
 </body>
 </html>
