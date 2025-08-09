@@ -247,6 +247,27 @@
             height: min(15vw, 150px);
             z-index: 2000;
         }
+        .restart-button{
+            display: block;
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: #FA940B;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 32px;
+            font-size: 1.2em;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            z-index: 4000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+        }
+        .restart-button:hover, .restart-button:focus {
+            background: #F7B733;
+            box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
+        }
         #joystick {
             width: 100%;
             height: 100%;
@@ -481,6 +502,7 @@
             <div id="joystick-knob"></div>
         </div>
     </div>
+    <button class="restart-button" id="restart-button">Voltar para o início</button>
     <button id="afterburner-btn">Teleportar</button>
     <div id="afterburner-modal-bg">
     <div id="afterburner-modal">
@@ -803,6 +825,11 @@
             portalMarker = null;
         });
         };
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('restart-button').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
     </script>
 </body>
 </html>
