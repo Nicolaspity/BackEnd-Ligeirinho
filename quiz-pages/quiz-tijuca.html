@@ -276,9 +276,12 @@
     });
 
     function exibirResultado() {
-    quizTitle.textContent = "Quiz Finalizado!";
-    quizOptions.innerHTML = `
-        <div class="section">
+        quizTitle.textContent = "Quiz Finalizado!";
+        quizOptions.innerHTML = ""; // limpar opções antes
+
+        if (pontuacao >= 2) {
+            quizOptions.innerHTML = `
+                <div class="section">
             <p>
                 Você acertou <strong>${pontuacao}</strong> de <strong>${quizData.length}</strong> perguntas.
             </p>
@@ -288,7 +291,7 @@
 
         <style> 
         .section {
-            margin: 0; /* corrigido: estava "marign" */
+            margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -329,9 +332,35 @@
             pointer-events: none; /* impede que o GIF bloqueie cliques nos botões/links */
         }
         </style>
+            `;
+        } else {
+            quizOptions.innerHTML = `
+                <p style="font-size: 1.5rem; color: white; font-family: 'Poppins', Arial, sans-serif; margin-bottom: 20px;">
+                    Você teve menos de 2 acertos, tente novamente!
+                </p>
+                <button id="voltar-info" style="
+                    background: #FA940B;
+                    color: #fff;
+                    border: none;
+                    border-radius: 24px;
+                    padding: 14px 24px;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    font-family: 'Poppins', sans-serif;
+                    box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
+                    transition: background 0.3s ease;
+                    min-width: 250px;
+                    display: block;
+                    text-align: center;
+                ">Voltar para as páginas de informação</button>
+            `;
 
-    `;
-    nextBtn.style.display = "none";
+        document.getElementById('voltar-info').addEventListener('click', () => {
+            window.location.href = '../infopages/botafogo.html';
+        });
+        }
+
+        nextBtn.style.display = "none";
     }
 
     carregarPergunta(perguntaAtual);
