@@ -67,24 +67,17 @@
         </main>
     </div>
     <script>
-      document.getElementById('quiz-btn').addEventListener('click', function() {
+    document.getElementById('quiz-btn').addEventListener('click', function() {
         window.location.href = '../quiz-pages/quiz-botafogo.html';
-      });
-      document.addEventListener("DOMContentLoaded", function() {
-            // Só anima se não tiver visitado antes
-            if (!sessionStorage.getItem('cardsAnimated')) {
-                const cards = document.querySelectorAll('.card');
-                cards.forEach((card, i) => {
-                    setTimeout(() => {
-                        card.classList.add('card-animate');
-                    }, 150 + i * 120); // efeito cascata
-                });
-                sessionStorage.setItem('cardsAnimated', 'true');
-            } else {
-                // Se já visitou, mostra direto
-                document.querySelectorAll('.card').forEach(card => card.classList.add('card-animate'));
-            }
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, i) => {
+            setTimeout(() => {
+                card.classList.add('card-animate');
+            }, 500 + i * 300); // efeito cascata mais lento
         });
+    });
     </script>
 </body>
 </html>
