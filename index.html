@@ -10,6 +10,11 @@
   <link rel="icon" type="image/png" sizes="64x64" href="src/icone-ligeirinho.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
     body {
       margin: 0;
       padding: 0;
@@ -147,6 +152,46 @@
     box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
     }
     @media (max-width: 480px) {
+      .container {
+    padding: 20px 10px;
+  }
+
+  .header {
+    height: auto;
+    padding: 40px 10px;
+  }
+
+  .header h1 {
+    font-size: 1.6em;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .section {
+    margin: 20px 0;
+    padding: 15px;
+    width: 100%;
+  }
+
+  .section h2 {
+    font-size: 1.4em;
+  }
+
+  .section p {
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  .team-photos img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+  }
+
+  .project button {
+    width: 100%;
+    min-width: unset;
+  }
   .header h1 {
     font-size: 2em;
     letter-spacing: 2px;
