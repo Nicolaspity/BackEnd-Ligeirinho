@@ -157,21 +157,21 @@ header h1 {
 
 
 .img-container figcaption {
-    font-size: 0.75rem;      /* texto pequeno */
-    color: #ccc;             /* cinza claro */
-    text-align: center;      /* centraliza */
-    margin-top: 4px;         /* espaço entre imagem e texto */
+    font-size: 0.75rem;
+    color: #ccc;             
+    text-align: center;    
+    margin-top: 4px;        
 }
 
 .img-container figcaption a {
-    color: inherit;          /* mesma cor do texto */
-    text-decoration: underline; /* sublinhado */
+    color: inherit;        
+    text-decoration: underline; 
 }
 
 .img-container-background {
     width: 100%;
-    height: 180px;
-    color: #4b4b4b
+    height: 20px;
+    background: #4b4b4b;
     justify-content: center;
     align-items: center;
     margin-bottom: 0;
@@ -179,14 +179,13 @@ header h1 {
 }
 
 .img-container-background figcaption {
-    font-size: 0.75rem;      /* texto pequeno */
-    color: #fff;             /* cinza escuro*/
-    text-align: center;      /* centraliza */
+    font-size: 0.75rem;     
+    color: #fff;            
+    text-align: center;     
 }
 
-.img-container-background figcaption a {
-    color: #fff;          /* mesma cor do texto */
-    text-decoration: underline; /* sublinhado */
+.img-container-background figcaption a {      
+    text-decoration: underline; 
 }
 
 
