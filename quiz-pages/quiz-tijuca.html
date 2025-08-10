@@ -142,30 +142,43 @@ body > * {
             background: linear-gradient(90deg, #F7B733 60%, #FA940B 100%);
             transform: scale(1.04);
         }
-        .background-caption {
-            width: 100%;
-            max-width: 600px;  /* limite para não ficar muito largo */
-            margin: 20px auto 40px;  /* margem acima para separar do botão, abaixo para separar da base */
-            padding: 10px 15px;
-            background-color: rgba(59, 59, 59, 0.8); /* fundo escuro semitransparente para destacar */
-            border-radius: 8px;
-            box-sizing: border-box;
-            text-align: center;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.3;
-        }
-        .background-caption figcaption {
-            text-align: center;       
-            font-size: 0.9rem;
-            color: #fff;
-            margin-top: 5px;          
-        }
-        .background-caption a {
-            color: #fff;
-            text-decoration: underline;
-        }
+        .img-container figcaption {
+    font-size: 0.75rem;
+    color: #ccc;             
+    text-align: center;    
+    margin-top: 4px;        
+}
+
+.img-container figcaption a {
+    color: inherit;        
+    text-decoration: underline; 
+}
+
+.background-caption {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 320px;
+    padding: 6px 12px;
+    background: 4b4b4b; 
+    text-align: center;
+    position: relative; 
+    display: flex;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.background-caption figcaption {
+    font-size: 0.75rem;
+    color: #fff;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.background-caption a {
+    color: #fff;
+    text-decoration: underline;
+}
 
 .background-caption a:hover {
     color: #FA940B; 
