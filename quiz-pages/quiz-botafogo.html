@@ -38,6 +38,9 @@
             min-height: calc(100vh - 350px);
             background-color: #39477a;
             background-image: radial-gradient(circle at bottom, #39477A, #303350);
+            width: 100%;              /* ocupa toda a largura */
+            max-width: 100%;          /* garante que não haja limite */
+            box-sizing: border-box;   /* evita transbordo por padding */
 
             /*background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");*/
 
@@ -86,7 +89,7 @@
             background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");
             justify-content: center;
             align-items: center;
-            display: flex;
+            display: block;
             
         }
         .quiz-option {
@@ -142,10 +145,10 @@
             z-index: 1000;
         }
         .background-caption figcaption {
-            font-size: 0.75rem;
+            text-align: center;       
+            font-size: 0.9rem;
             color: #fff;
-            font-style: italic;
-            line-height: 1.4;
+            margin-top: 5px;          
         }
         .background-caption a {
             color: #fff;
