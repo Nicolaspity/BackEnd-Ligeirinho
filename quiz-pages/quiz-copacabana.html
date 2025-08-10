@@ -11,11 +11,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            background-color: #39477a;
-            background-image: url("https://www.transparenttextures.com/patterns/otis-redding.png");
-            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-        }
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Copacabana_Beach_Mosaic_and_Palm_Trees.jpg/1600px-Copacabana_Beach_Mosaic_and_Palm_Trees.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative; /* necessário para o pseudo-elemento */
+}
+
+/* Overlay para controlar a opacidade/claridade da imagem */
+body::before {
+    content: "";
+    position: fixed; /* fica fixo na tela */
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.6); /* camada branca translúcida */
+    pointer-events: none; /* não bloqueia cliques */
+    z-index: 0;
+}
+
+/* Conteúdo do body deve ficar acima do overlay */
+body > * {
+    position: relative;
+    z-index: 1;
+}
         .quiz-header-img {
             width: 100%;
             height: 300px;
@@ -29,9 +47,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: calc(100vh - 350px);
             background-color: #39477a;
             background-image: radial-gradient(circle at bottom, #39477A, #303350);
+            width: 100%;              /* ocupa toda a largura */
+            max-width: 100%;          /* garante que não haja limite */
+            box-sizing: border-box;   /* evita transbordo por padding */
 
             /*background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");*/
 
@@ -80,7 +100,7 @@
             background-image: url("https://www.transparenttextures.com/patterns/broken-noise.png");
             justify-content: center;
             align-items: center;
-            display: flex;
+            display: block;
             
         }
         .quiz-option {
@@ -122,47 +142,100 @@
             background: linear-gradient(90deg, #F7B733 60%, #FA940B 100%);
             transform: scale(1.04);
         }
-        @media (max-width: 900px) {
-            .quiz-options {
-                flex-direction: column;
-                gap: 14px;
-                margin: 10px 0;
-                padding: 0;
-            }
-            .quiz-option {
-                width: 95vw;
-                max-width: 420px;
-                min-width: 0;
-                height: auto;
-                min-height: 80px;
-                font-size: 1.2rem;
-                padding: 12px 8px;
-                margin: 0 auto;
-            }
-            .quiz-header-img {
-                height: 160px;
-            }
-            .quiz-title {
-                font-size: 2rem;
-            }
-            .quiz-next-btn {
-                font-size: 1.3rem;
-                padding: 12px 24px;
-                border-radius: 24px;
-            }
-            .quiz-container {
-                padding: 16px 4vw 16px 4vw;
-                min-height: unset;
-            }
+        .background-caption {
+            width: 100%;
+            max-width: 600px;  /* limite para não ficar muito largo */
+            margin: 20px auto 40px;  /* margem acima para separar do botão, abaixo para separar da base */
+            padding: 10px 15px;
+            background-color: rgba(59, 59, 59, 0.8); /* fundo escuro semitransparente para destacar */
+            border-radius: 8px;
+            box-sizing: border-box;
+            text-align: center;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.3;
         }
+        .background-caption figcaption {
+            text-align: center;       
+            font-size: 0.9rem;
+            color: #fff;
+            margin-top: 5px;          
+        }
+        .background-caption a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+.background-caption a:hover {
+    color: #FA940B; 
+}
+        @media (max-width: 900px) {
+    /* Centralizar o título com padding lateral */
+    .quiz-title {
+        font-size: 2rem;
+        text-align: center;
+        padding: 0 10px; /* espaço lateral para evitar encostar nas bordas */
+    }
+
+    /* Centralizar opções do quiz e ajustar largura para caber melhor */
+    .quiz-options {
+        flex-direction: column;
+        gap: 14px;
+        margin: 10px 0;
+        padding: 0;
+        justify-content: center;  /* garante centralização */
+        align-items: center;     /* alinha itens no centro horizontal */
+    }
+
+    .quiz-option {
+        width: 95vw;      /* ocupa 95% da largura da viewport */
+        max-width: 420px; /* limita para telas maiores */
+        min-width: 0;
+        height: auto;
+        min-height: 80px;
+        font-size: 1.2rem;
+        padding: 12px 8px;
+        margin: 0 auto;
+        text-align: center;  /* centraliza texto dentro das opções */
+        display: flex;       /* para centralizar texto vertical e horizontal */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Botão Próximo centralizado e com tamanho reduzido */
+    .quiz-next-btn {
+        font-size: 1.3rem;
+        padding: 12px 24px;
+        border-radius: 24px;
+        margin: 20px auto 0 auto;
+        display: block;
+        width: fit-content;
+    }
+
+    /* Container geral com padding lateral */
+    .quiz-container {
+        padding: 16px 4vw 16px 4vw;
+        min-height: unset;
+        text-align: center;
+    }
+}
     </style>
 </head>
 <body>
-    <img class="quiz-header-img" src="https://images.musement.com/cover/0134/05/corcovado-rio-de-janeiro-brazil-jpg_header-13304914.jpeg" alt="Rio de Janeiro">
+    <img class="quiz-header-img" href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Copacabana_Beach_Mosaic_and_Palm_Trees.jpg/1600px-Copacabana_Beach_Mosaic_and_Palm_Trees.jpg?20211011205424" alt="Rio de Janeiro">
     <div class="quiz-container">
         <h1 class="quiz-title" id="quiz-title">Carregando...</h1>
         <div class="quiz-options" id="quiz-options"></div>
         <button class="quiz-next-btn" id="next-btn" disabled>Próximo</button>
+    </div>
+    <div class="background-caption">
+        <figcaption>
+            Fonte da imagem de fundo: 
+            <a href="https://upload.wikimedia.org/wikipedia/commons/3/32/File3_-_Praia_de_Botafogo_-_Bairro_de_Botafogo_-_Rio_de_Janeiro_-_Brazil.jpg?20180919051015" target="_blank">                
+                Foto de Amgauna, via Wikimedia Commons, CC BY-SA 4.0. (https://creativecommons.org/licenses/by-sa/4.0/)
+            </a>
+        </figcaption>
     </div>
 
     <script>
