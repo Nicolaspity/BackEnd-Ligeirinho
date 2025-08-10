@@ -169,6 +169,7 @@ header h1 {
 }
 
 .background-caption {
+    margin-top: 20px;
     width: 100%;
     padding: 6px 12px;
     background: rgba(0, 0, 0, 0.5); 
