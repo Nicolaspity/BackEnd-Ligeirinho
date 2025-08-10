@@ -171,10 +171,12 @@ header h1 {
 .background-caption {
     margin-top: 20px;
     width: 100%;
+    max-width: 320px;
     padding: 6px 12px;
-    background: rgba(0, 0, 0, 0.5); 
+    background: 4b4b4b; 
     text-align: center;
     position: relative; 
+    display: flex;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -182,13 +184,13 @@ header h1 {
 
 .background-caption figcaption {
     font-size: 0.75rem;
-    color: #f5f5f5;
+    color: #fff;
     font-style: italic;
     line-height: 1.4;
 }
 
 .background-caption a {
-    color: #f5f5f5;
+    color: #fff;
     text-decoration: underline;
 }
 
