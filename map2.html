@@ -366,12 +366,17 @@
         });
 
         // Linhas guias para os Sesc's
-        const guideLines = sescLocations.map(() => L.polyline([], {
-            color: '#1C8CD1',
-            weight: 2,
-            opacity: 0.6,
-            dashArray: '5, 10'
-        }));
+        const defaultColor = '#1C8CD1';  // azul padrão
+        const highlightColor = '#E63946'; // vermelho para destaque
+
+        const guideLines = sescLocations.map((location, index) => 
+            L.polyline([], {
+                color: (index === 0) ? highlightColor : defaultColor,
+                weight: (index === 0) ? 4 : 2,
+                opacity: (index === 0) ? 1 : 0.6,
+                dashArray: '5, 10'
+            })
+        )
 
         // Elemento do robô
         const robot = document.getElementById('robot');
