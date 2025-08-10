@@ -247,19 +247,24 @@
       <button id="start-btn">Vamos começar!</button>
     </div>
   </div>
-  <script>
-  document.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top >= 0 && rect.top < window.innerHeight) {
-        section.classList.add('in-view');
-      }
-    });
+// Função para verificar se as seções estão visíveis
+function checkSections() {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      section.classList.add('in-view');
+    }
   });
-  document.getElementById('start-btn').onclick = function() {
-    window.location.href = 'inicio.html';
-  };
-</script>
+}
+
+// Executa ao carregar a página e ao rolar
+document.addEventListener('DOMContentLoaded', checkSections);
+document.addEventListener('scroll', checkSections);
+
+// Botão de início
+document.getElementById('start-btn').onclick = function() {
+  window.location.href = 'inicio.html';
+};
 </body>
 </html>
