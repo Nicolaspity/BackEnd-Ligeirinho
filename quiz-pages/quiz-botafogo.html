@@ -171,38 +171,55 @@ body > * {
     color: #FA940B; 
 }
         @media (max-width: 900px) {
-            .quiz-options {
-                flex-direction: column;
-                gap: 14px;
-                margin: 10px 0;
-                padding: 0;
-            }
-            .quiz-option {
-                width: 95vw;
-                max-width: 420px;
-                min-width: 0;
-                height: auto;
-                min-height: 80px;
-                font-size: 1.2rem;
-                padding: 12px 8px;
-                margin: 0 auto;
-            }
-            .quiz-header-img {
-                height: 160px;
-            }
-            .quiz-title {
-                font-size: 2rem;
-            }
-            .quiz-next-btn {
-                font-size: 1.3rem;
-                padding: 12px 24px;
-                border-radius: 24px;
-            }
-            .quiz-container {
-                padding: 16px 4vw 16px 4vw;
-                min-height: unset;
-            }
-        }
+    /* Centralizar o título com padding lateral */
+    .quiz-title {
+        font-size: 2rem;
+        text-align: center;
+        padding: 0 10px; /* espaço lateral para evitar encostar nas bordas */
+    }
+
+    /* Centralizar opções do quiz e ajustar largura para caber melhor */
+    .quiz-options {
+        flex-direction: column;
+        gap: 14px;
+        margin: 10px 0;
+        padding: 0;
+        justify-content: center;  /* garante centralização */
+        align-items: center;     /* alinha itens no centro horizontal */
+    }
+
+    .quiz-option {
+        width: 95vw;      /* ocupa 95% da largura da viewport */
+        max-width: 420px; /* limita para telas maiores */
+        min-width: 0;
+        height: auto;
+        min-height: 80px;
+        font-size: 1.2rem;
+        padding: 12px 8px;
+        margin: 0 auto;
+        text-align: center;  /* centraliza texto dentro das opções */
+        display: flex;       /* para centralizar texto vertical e horizontal */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Botão Próximo centralizado e com tamanho reduzido */
+    .quiz-next-btn {
+        font-size: 1.3rem;
+        padding: 12px 24px;
+        border-radius: 24px;
+        margin: 20px auto 0 auto;
+        display: block;
+        width: fit-content;
+    }
+
+    /* Container geral com padding lateral */
+    .quiz-container {
+        padding: 16px 4vw 16px 4vw;
+        min-height: unset;
+        text-align: center;
+    }
+}
     </style>
 </head>
 <body>
