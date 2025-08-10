@@ -123,6 +123,33 @@
             background: linear-gradient(90deg, #F7B733 60%, #FA940B 100%);
             transform: scale(1.04);
         }
+        .background-caption {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 320px;
+            padding: 6px 12px;
+            background: 4b4b4b; 
+            text-align: center;
+            position: relative; 
+            display: flex;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .background-caption figcaption {
+            font-size: 0.75rem;
+            color: #fff;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .background-caption a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+.background-caption a:hover {
+    color: #FA940B; 
+}
         @media (max-width: 900px) {
             .quiz-options {
                 flex-direction: column;
