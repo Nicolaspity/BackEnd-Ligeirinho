@@ -629,17 +629,6 @@
             dashArray: '5, 10'
         }));
 
-        setTimeout(() => {
-                // Verifica se é mobile antes de mostrar o balão
-                if (/Mobi|Android/i.test(navigator.userAgent)) {
-                        const tipBalloon = document.getElementById('tip-balloon');
-                        tipBalloon.style.display = 'block'; 
-                        
-                        setTimeout(() => {
-                            tipBalloon.style.display = 'none';
-                        }, 15000);
-                }
-        }, 500);
 
         // Elemento do robô
         const robot = document.getElementById('robot');
