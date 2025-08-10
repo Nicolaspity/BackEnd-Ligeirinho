@@ -260,6 +260,9 @@ header h1 {
 /* ===== RESPONSIVIDADE ===== */
 /* Responsividade para tablets */
 @media (max-width: 900px) {
+     body {
+        align-items: center;
+    }
     .header-grid {
         grid-template-columns: 1fr;
     }
@@ -276,6 +279,9 @@ header h1 {
 
 /* Responsividade para celulares */
 @media (max-width: 600px) {
+    body {
+        align-items: center;
+    }
     .cards {
         grid-template-columns: 1fr; /* 1 card por linha */
     }
