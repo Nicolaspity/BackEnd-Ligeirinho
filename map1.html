@@ -139,6 +139,21 @@
             cursor: grabbing;
         }
         .sesc-marker div {
+            /*background: radial-gradient(circle, #1C8CD1, #3F79A8);*/
+            width: 32px;
+            height: 32px;
+            /*border-radius: 50%;*/
+            /*border: 2px solid rgba(250, 148, 11, 0.8);*/
+            animation: pulse 1.5s ease-in-out infinite;
+            /*box-shadow: 0 0 8px rgba(28, 140, 209, 0.5);*/
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .marker-circle {
             background: radial-gradient(circle, #1C8CD1, #3F79A8);
             width: 16px;
             height: 16px;
@@ -147,11 +162,28 @@
             animation: pulse 1.5s ease-in-out infinite;
             box-shadow: 0 0 8px rgba(28, 140, 209, 0.5);
         }
+
+        .marker-arrow-svg {
+            /*transform: rotate(-90deg);  seta apontando para cima */
+            margin-top: 7px; /* aproxima da bolinha */
+        }
+        .marker-arrow-svg svg {
+            animation: pulse 1.5s ease-in-out infinite;
+            pointer-events: none; /* evita capturar cliques */
+            height: 120px;
+            width: auto;
+        }
+        .marker-arrow-svg svg path {
+            fill: #000000; /* cor da seta */
+        }
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.2); opacity: 1; }
             100% { transform: scale(1); opacity: 0.8; }
         }
+
+
+        
         .leaflet-popup-content-wrapper {
             background: rgba(45, 48, 51, 0.85);
             color: #FA940B;
@@ -277,15 +309,14 @@
         <div id="welcome-overlay">
     <div id="welcome-popup">
         <img src="src/ligeirinho.png" alt="Robô" id="welcome-robot-img" />
-        <h1>Olá, seja bem vindo. 
-            Estamos felizes que você esteja aqui!
-            Utilize o JoyStick para controlar o robô e explorar os Sesc's do Rio de Janeiro e obter conhecimento!
-            <br> Está pronto para começar?
+        <h1>Olá, seja bem vindo.<br> 
+            Utilize o JoyStick no canto inferior esquerdo para controlar o Ligeirinho<br>
+            pela linha pontilhada e explore o Sesc Tijuca!
         </h1>
         <button id="welcome-start-btn">Começar</button>
     </div>
     </div>
-    <button class="restart-button" id="restart-button">Voltar para o início</button>
+    <button class="restart-button" id="restart-button">Início</button>
     <div id="map"></div>
     <div id="robot"></div>
     <div id="joystick-container">
@@ -351,9 +382,17 @@
             const marker = L.marker([location.lat, location.lng], {
                 icon: L.divIcon({
                     className: 'sesc-marker',
-                    html: `<div></div>`,
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10]
+                    html: `
+                        <div class="marker-circle"></div>
+                        <div class="marker-arrow-svg">
+                            <svg width="99" height="99" viewBox="0 0 99 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M45.375 32.2781L22.275 55.3781L16.5 49.5L49.5 16.5L82.5 49.5L76.725 55.3781L53.625 32.2781L53.625 82.5L45.375 82.5L45.375 32.2781Z" fill="#1D1B20"/>
+                            </svg>
+
+                        </div>
+                    `,
+                    iconSize: [20, 40],    // espaço para a seta embaixo
+                    iconAnchor: [10, 20]   // âncora na ponta da seta
                 })
             }).addTo(map).bindPopup(
                 `<img src="${location.image}" alt="${location.name}">
@@ -361,10 +400,16 @@
                 <p>${location.description}</p>`,
                 { autoClose: false, closeOnClick: false, autoPan: false }
             );
+
             return marker;
         });
-        sescMarkers[0].on('click', function() {
-            window.location.href = 'infopages/tijuca.html';
+
+        sescMarkers.forEach((marker, index) => {
+            marker.on('click', () => {
+                if (index === 0) {
+                    window.location.href = 'infopages/tijuca.html';
+                }
+            });
         });
 
         // Linhas guias para os Sesc's
