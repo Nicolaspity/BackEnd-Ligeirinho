@@ -15,6 +15,12 @@
       <img src="../src/logo-sesc-educacao.png" alt="Sesc Educação Logo" class="sesc-logo">
     </header>
     <main>
+      <section class="GUI">
+        <div class="scroll-down-indicator" id="scrollArrow">
+          <img src="assets/arrow.svg">
+        </div>
+
+      </section>
       <section class="top-section fade-up">
         <div class="left-top">
           <h1>Parabéns por ter<br>chegado ao fim<br>da jornada!</h1>
@@ -89,7 +95,19 @@
   document.getElementById('referencias-button').addEventListener('click', function() {
     window.location.href = '../agradecimentos/referencias.html';
   });
-    
+
+  window.addEventListener('scroll', function() {
+      const arrow = document.getElementById('scrollArrow');
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+
+      // Se estiver no fundo (ou quase)
+      if (scrollPosition >= pageHeight - 50) {
+          arrow.classList.add('hidden');
+      } else {
+          arrow.classList.remove('hidden');
+      }
+  });
   </script>
 </body>
 
