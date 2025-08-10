@@ -484,6 +484,23 @@
             margin-right: 12px;
             filter: drop-shadow(0 0 10px #FA940B88);
         }
+            @media (max-width: 768px) {
+    #tip-balloon {
+        bottom: 100px; /* Eleva o balão acima dos controles */
+        width: 90%; /* Ocupa mais largura */
+        max-width: none; /* Remove limitação de largura */
+    }
+    
+    /* Ajusta o botão de teleportar para não ficar embaixo do balão */
+    #afterburner-btn {
+        bottom: 32px !important;
+    }
+    
+    /* Ajusta o botão de reinício */
+    .restart-button {
+        bottom: 32px !important;
+    }
+}
     </style>
 </head>
 <body>
