@@ -148,53 +148,62 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
     }
-   @media (max-width: 480px) {
-     body {
-        background-size: contain;
-        background-repeat: no-repeat;
+  @media screen and (max-width: 480px) {
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        font-size: 14px; /* texto mais proporcional */
+    }
+
+    /* Centralizar e empilhar elementos */
+    main, header, footer, section, article, div {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    /* Imagens ajustadas sem cortar */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Botões mais adaptados */
+    button, .btn {
+        display: inline-block;
+        width: 100%;
+        max-width: 300px;
+        padding: 12px;
+        font-size: 1rem;
+        margin: 8px auto;
+    }
+
+    /* Ajuste para títulos */
+    h1 {
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+    }
+    h2 {
+        font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+    }
+
+    /* Ajuste para parágrafos */
+    p {
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        line-height: 1.5;
+    }
+
+    /* Imagem de fundo cobrindo sem corte relevante */
+    body {
+        background-size: cover;
         background-position: center;
     }
-  .container {
-    padding: 20px 10px;
-  }
 
-  .header {
-    height: auto;
-    padding: 40px 10px;
-  }
-
-  .header h1 {
-    font-size: 1.4em;
-    letter-spacing: 1px;
-    text-align: center;
-    padding: 0 5px;
-  }
-
-  .section {
-    margin: 20px 0;
-    padding: 15px;
-    width: 100%;
-  }
-
-  .section h2 {
-    font-size: 1.4em;
-  }
-
-  .section p {
-    font-size: 1em;
-    line-height: 1.4;
-  }
-
-  .team-photos img {
-    width: 100%;
-    height: auto;
-    max-width: 250px;
-  }
-
-  .project button {
-    width: 100%;
-    min-width: unset;
-  }
+    /* Remover margens exageradas */
+    * {
+        margin: 0;
+    }
 }
     @keyframes fadeIn {
       from {
