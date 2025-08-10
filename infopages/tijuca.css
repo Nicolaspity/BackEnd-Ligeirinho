@@ -178,7 +178,7 @@ header h1 {
     flex-shrink: 0; 
 }
 
-.img-container-background figcaption {
+.img-container-background figcaption{
     font-size: 0.75rem;     
     color: #fff;            
     text-align: center;     
