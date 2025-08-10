@@ -486,19 +486,22 @@
         }
             @media (max-width: 768px) {
     #tip-balloon {
-        bottom: 100px; /* Eleva o balão acima dos controles */
-        width: 90%; /* Ocupa mais largura */
-        max-width: none; /* Remove limitação de largura */
+        bottom: auto !important;  /* Remove posicionamento inferior */
+        top: 20px !important;    /* Posiciona no topo da tela */
+        transform: translateX(-50%) !important; /* Centraliza horizontalmente */
+        width: 90% !important;
+        max-width: 400px !important;
+        padding: 15px !important;
+        z-index: 9999 !important; /* Garante que fique acima de tudo */
     }
-    
-    /* Ajusta o botão de teleportar para não ficar embaixo do balão */
-    #afterburner-btn {
-        bottom: 32px !important;
+                    #afterburner-btn, .restart-button {
+        bottom: 20px !important; /* Aumenta o espaçamento inferior */
+        z-index: 100; /* Mantém os botões abaixo da dica */
     }
-    
-    /* Ajusta o botão de reinício */
-    .restart-button {
-        bottom: 32px !important;
+
+    /* Opcional: ajuste o tamanho do texto para mobile */
+    #tip-balloon .balloon-text {
+        font-size: 0.9em !important;
     }
 }
     </style>
