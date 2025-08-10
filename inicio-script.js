@@ -57,7 +57,7 @@
         if (target === page2 && !typeWriterExecuted.page2) {
             const el = document.getElementById('typed-text');
             if (el) {
-                typeWriter(el, "Você é um grande apreciador de história e viaja até o Rio de Janeiro a fim de descobrir mais sobre o nosso estado");
+                typeWriter(el, "Você é um grande apreciador de história e viaja até o Rio de Janeiro a fim de descobrir mais sobre o estado");
                 typeWriterExecuted.page2 = true;
             }
         }
@@ -65,7 +65,7 @@
         if (target === page3 && !typeWriterExecuted.page3) {
             const text3 = document.getElementById('page3-text');
             if (text3) {
-                typeWriter(text3, "Uma grande viagem no tempo acontece, após o grande Caos dominar o Rio de Janeiro");
+                typeWriter(text3, "Uma grande viagem no tempo acontece após o grande Caos (o desconhecimento) dominar o Rio");
                 typeWriterExecuted.page3 = true;
             }
         }
@@ -73,7 +73,7 @@
         if (target === page4 && !typeWriterExecuted.page4) {
             const text4 = document.getElementById('page4-text');
             if (text4) {
-                typeWriter(text4, "Agora você precisa reconstruir a história e descobrir as origens do Caos no Rio de Janeiro!");
+                typeWriter(text4, "Agora és convidado a reconstruir a história do nosso estado e descobrir as origens do Caos.");
                 typeWriterExecuted.page4 = true;
             }
         }
