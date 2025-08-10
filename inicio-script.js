@@ -73,7 +73,7 @@
         if (target === page4 && !typeWriterExecuted.page4) {
             const text4 = document.getElementById('page4-text');
             if (text4) {
-                typeWriter(text4, "Agora és convidado a reconstruir a história do nosso estado e descobrir as origens do Caos.");
+                typeWriter(text4, "Agora és convidado a reconstruir a história do nosso estado e descobrir as origens do Caos");
                 typeWriterExecuted.page4 = true;
             }
         }
