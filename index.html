@@ -52,13 +52,6 @@
       align-items: center;
       z-index: 1;
     }
-    /*.logo {
-      width: 10px;
-      height: auto;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }*/
     .sesceducacao {
       width: 300px;
       height: 100px;
@@ -102,6 +95,89 @@
       font-size: 1.4em;
       line-height: 1.8;
     }
+
+    /* Carrossel */
+    .carousel-container {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .carousel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.5s ease-in-out;
+      width: fit-content;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      background: rgba(63, 121, 168, 0.2);
+      border: 2px solid rgba(57, 71, 122, 0.5);
+      transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
+      transform: scale(0.8);
+      opacity: 0.5;
+      min-width: 250px;
+    }
+    .card.active {
+      transform: scale(1);
+      opacity: 1;
+      box-shadow: 0 0 30px rgba(250, 148, 11, 0.7), inset 0 0 20px rgba(250, 148, 11, 0.5);
+    }
+    .card-image-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 15px;
+      border: 3px solid #FA940B;
+      box-shadow: 0 0 10px rgba(250, 148, 11, 0.5);
+    }
+    .developer-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card h3 {
+      color: #fff;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .qrcode-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+    }
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .carousel-nav button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid #FA940B;
+      color: #FA940B;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .carousel-nav button:hover {
+      background: #FA940B;
+      color: #fff;
+    }
+
     .team-photos {
       display: flex;
       justify-content: center;
@@ -111,6 +187,8 @@
       flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
+      /* Não será exibido pois substituído pelo carousel */
+      display: none;
     }
     .poster, 
     .team-photos img {
@@ -126,94 +204,84 @@
       border-radius: 15px;
     }
     .project button {
-    background: #FA940B;
-    color: #fff;
-    border: none;
-    border-radius: 24px;
-    padding: 14px 24px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
-    transition: 
+      background: #FA940B;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 24px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 2px 10px rgba(250, 148, 11, 0.3);
+      transition: 
         background 0.3s ease,
         transform 0.2s ease,
         box-shadow 0.3s ease;
-    min-width: 250px;
-    margin: 0 auto;
-    display: block;
-  }
-    .project button:hover {
-    background: #F7B733;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
+      min-width: 250px;
+      margin: 0 auto;
+      display: block;
     }
-@media screen and (max-width: 480px) {
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    font-size: 14px;
-    height: auto; /* Adicione esta linha */
-  }
-
-  .container {
-    padding: 20px 10px; /* Reduza o padding */
-  }
-
-  .header h1 {
-    font-size: 1.8rem; /* Reduza o tamanho da fonte */
-    padding: 0 10px;
-  }
-
-  .section {
-    margin: 30px 0 !important; /* Reduza as margens */
-    padding: 20px;
-    width: 90%; /* Reduza a largura */
-  }
-
-  .section h2 {
-    font-size: 1.5rem;
-  }
-
-  .section p {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-
-  .poster, 
-  .team-photos img {
-    width: 90% !important; /* Ajuste a largura das imagens */
-  }
-
-  button {
-    width: 90%;
-    max-width: none;
-    padding: 12px;
-  }
-}
+    .project button:hover {
+      background: #F7B733;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(250, 148, 11, 0.4);
+    }
+    @media screen and (max-width: 480px) {
+      html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        font-size: 14px;
+        height: auto;
+      }
+      .container {
+        padding: 20px 10px;
+      }
+      .header h1 {
+        font-size: 1.8rem;
+        padding: 0 10px;
+      }
+      .section {
+        margin: 30px 0 !important;
+        padding: 20px;
+        width: 90%;
+      }
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      .section p {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      .poster, 
+      .team-photos img {
+        width: 90% !important;
+      }
+      button {
+        width: 90%;
+        max-width: none;
+        padding: 12px;
+      }
+      .carousel-container {
+        max-width: 98vw;
+      }
+      .card {
+        min-width: 170px;
+        padding: 10px;
+      }
+      .card-image-container {
+        width: 90px;
+        height: 90px;
+      }
+      .qrcode-container img {
+        width: 55px;
+        height: 55px;
+      }
+    }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
-  <script>
-    document.addEventListener('scroll', function() {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top >= 0 && rect.top < window.innerHeight) {
-          section.classList.add('in-view');
-        }
-      });
-    });
-    document.getElementById('start-btn').onclick = function() {
-    window.location.href = 'inicio.html';
-  };
-  </script>
 </head>
 <body>
   <div class="noise"></div>
@@ -221,7 +289,6 @@
     <div class="header">
       <img class="poster" src="src/logo.jpeg" alt="Logo Equipe F5">
       <h1>Guardião da Memória: O bibliotecário Robótico</h1>
-      <!-- <img class="sesceducacao" src="src/logosescmaiseducacao.svg" alt="Logo Sesc Educação"> -->
     </div>
     <div class="section">
       <h2>Venha se mergulhar nessa história interativa!</h2>
@@ -233,12 +300,95 @@
     </div>
     <div class="section">
       <h2>Desenvolvedores: Equipe F5</h2>
-      <div class="team-photos">
-        <img class="logo" src="src/logo.jpeg" alt="Logo Equipe F5" style="width: 100px;
-      height: 100px;
-      animation: fadeIn 2s ease-in-out;">
-        <img src="src/foto_equipe.jpeg" alt="Equipe F5">
-        
+      <!-- Carrossel dos desenvolvedores -->
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer4.jpeg" alt="Foto da Maria Laura">
+            </div>
+            <h3>Maria Laura</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode4.jpeg" alt="QR Code da Maria Laura">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer5.jpeg" alt="Foto do João Victor">
+            </div>
+            <h3>João Victor</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode5.jpeg" alt="QR Code do João Victor">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer1.jpeg" alt="Foto do Mathias Basilio">
+            </div>
+            <h3>Mathias Basilio</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode1.png" alt="QR Code do Mathias Basilio">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer2.jpg" alt="Foto do Gabriel Toledo">
+            </div>
+            <h3>Gabriel Toledo</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode2.png" alt="QR Code do Gabriel Toledo">
+            </div>
+          </div>
+          <div class="card active">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer3.png" alt="Foto do Nicolas Esteves">
+            </div>
+            <h3>Nicolas Esteves</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode3.png" alt="QR Code do Nicolas Esteves">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer4.jpeg" alt="Foto da Maria Laura">
+            </div>
+            <h3>Maria Laura</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode4.jpeg" alt="QR Code da Maria Laura">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer5.jpeg" alt="Foto do João Victor">
+            </div>
+            <h3>João Victor</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode5.jpeg" alt="QR Code do João Victor">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer1.jpeg" alt="Foto do Mathias Basilio">
+            </div>
+            <h3>Mathias Basilio</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode1.png" alt="QR Code do Mathias Basilio">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image-container">
+              <img class="developer-photo" src="src/developer2.jpg" alt="Foto do Gabriel Toledo">
+            </div>
+            <h3>Gabriel Toledo</h3>
+            <div class="qrcode-container">
+              <img src="src/qrcode2.png" alt="QR Code do Gabriel Toledo">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button id="prevBtn">❮</button>
+        <button id="nextBtn">❯</button>
       </div>
     </div>
     <div class="section project">
@@ -248,18 +398,149 @@
     </div>
   </div>
   <script>
-  document.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top >= 0 && rect.top < window.innerHeight) {
-        section.classList.add('in-view');
-      }
+    // Seções animadas
+    document.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top < window.innerHeight) {
+          section.classList.add('in-view');
+        }
+      });
     });
-  });
-  document.getElementById('start-btn').onclick = function() {
-    window.location.href = 'inicio.html';
-  };
-</script>
+
+    document.getElementById('start-btn').onclick = function() {
+      window.location.href = 'inicio.html';
+    };
+
+    // Carrossel com foco e ciclo infinito
+    document.addEventListener('DOMContentLoaded', () => {
+      const carousel = document.querySelector('.carousel');
+      const cards = document.querySelectorAll('.card');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const numOriginalCards = 5; // Alterar se mudar o número de devs
+      let currentIndex = 0;
+      let interval;
+      const intervalTime = 3000;
+
+      function updateCarousel() {
+        const cardWidth = cards[0].offsetWidth + 20;
+        const totalCards = cards.length;
+        const offset = (currentIndex + 2) * -cardWidth;
+        carousel.style.transform = `translateX(${offset}px)`;
+
+        cards.forEach(card => card.classList.remove('active'));
+        const activeIndex = currentIndex + 2;
+        if (cards[activeIndex]) {
+          cards[activeIndex].classList.add('active');
+        }
+      }
+
+      function handleInfiniteLoop() {
+        if (currentIndex >= numOriginalCards) {
+          carousel.style.transition = 'none';
+          currentIndex = 0;
+          updateCarousel();
+          setTimeout(() => {
+            carousel.style.transition = 'transform 0.5s ease-in-out';
+          }, 50);
+        } else if (currentIndex < 0) {
+          carousel.style.transition = 'none';
+          currentIndex = numOriginalCards - 1;
+          updateCarousel();
+          setTimeout(() => {
+            carousel.style.transition = 'transform 0.5s ease-in-out';
+          }, 50);
+        }
+      }
+
+      function moveNext() {
+        currentIndex++;
+        updateCarousel();
+        handleInfiniteLoop();
+      }
+
+      function movePrev() {
+        currentIndex--;
+        updateCarousel();
+        handleInfiniteLoop();
+      }
+
+      function startInterval() {
+        clearInterval(interval);
+        interval = setInterval(moveNext, intervalTime);
+      }
+
+      function stopInterval() {
+        clearInterval(interval);
+      }
+
+      prevBtn.addEventListener('click', () => {
+        stopInterval();
+        movePrev();
+        startInterval();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        stopInterval();
+        moveNext();
+        startInterval();
+      });
+
+      // Mouse/touch drag (opcional, pode remover se não quiser)
+      let startX;
+      let isDragging = false;
+
+      carousel.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        stopInterval();
+        carousel.style.cursor = 'grabbing';
+      });
+
+      carousel.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const walk = (e.clientX - startX) * 1.5;
+        carousel.style.transform = `translateX(calc(${carousel.style.transform.replace('translateX(', '').replace(')', '')}px - ${walk}px))`;
+        startX = e.clientX;
+      });
+
+      carousel.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.style.cursor = 'grab';
+        startInterval();
+      });
+
+      carousel.addEventListener('mouseleave', () => {
+        isDragging = false;
+        carousel.style.cursor = 'grab';
+      });
+
+      carousel.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        stopInterval();
+      });
+
+      carousel.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const walk = (e.touches[0].clientX - startX) * 1.5;
+        carousel.style.transform = `translateX(calc(${carousel.style.transform.replace('translateX(', '').replace(')', '')}px - ${walk}px))`;
+        startX = e.touches[0].clientX;
+      });
+
+      carousel.addEventListener('touchend', () => {
+        isDragging = false;
+        startInterval();
+      });
+
+      window.addEventListener('resize', updateCarousel);
+
+      updateCarousel();
+      startInterval();
+    });
+  </script>
 </body>
 </html>
